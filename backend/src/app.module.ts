@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as process from 'node:process';
+import { RouterModule } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -27,6 +28,20 @@ import * as process from 'node:process';
     IamModule,
     RolesModule,
     UsersModule,
+    RouterModule.register([
+      {
+        path: 'users',
+        module: UsersModule,
+      },
+      {
+        path: 'roles',
+        module: RolesModule,
+      },
+      {
+        path: 'authentication',
+        module: IamModule,
+      },
+    ]),
   ],
   controllers: [AppController],
   providers: [AppService],
