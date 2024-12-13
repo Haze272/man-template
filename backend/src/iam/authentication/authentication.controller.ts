@@ -17,7 +17,7 @@ import { SignInDto } from './dto/sign-in.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 
 @Auth(AuthType.None)
-@Controller('authentication')
+@Controller()
 export class AuthenticationController {
   constructor(private readonly authService: AuthenticationService) {}
 

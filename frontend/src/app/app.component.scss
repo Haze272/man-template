@@ -1,0 +1,20 @@
+.test-info {
+  position: fixed;
+  top: var(--spacing-03);
+  right: var(--spacing-03);
+
+  width: 200px;
+  min-height: 200px;
+  max-height: 90vh;
+
+  padding: var(--spacing-03);
+  border-radius: 8px;
+
+  background-color: var(--color-primary);
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-02);
+}
+
