@@ -1,9 +1,27 @@
 :root {
+  /// colors
+
   // domain
+
+  --text-color: var(--color-secondary);
+
+  // theme
 
   --color-primary: #478ae1;
   --color-secondary: #2B2D2D;
+  --color-surface: var(--color-white);
+
+  // base
+
   --color-white: #FEFEFE;
+
+  /// spacings & sizes
+
+  // domain
+
+
+
+  // base
 
   --spacing-01: 2px;
   --spacing-02: 4px;
