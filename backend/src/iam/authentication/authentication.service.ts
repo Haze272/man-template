@@ -75,7 +75,9 @@ export class AuthenticationService {
     if (!user) {
       throw new UnauthorizedException('Пользователь не существует!');
     }
-    return { user };
+
+    const { refreshToken } = await this.generateTokens(user);
+    return { refreshToken, user };
   }
 
   async generateTokens(user: User) {
@@ -119,7 +121,7 @@ export class AuthenticationService {
   }
 
   private async signToken<T>(userId: number, expiresIn: number, payload?: T) {
-    const accessToken = await this.jwtService.signAsync(
+    return await this.jwtService.signAsync(
       {
         sub: userId,
         ...payload,
@@ -131,6 +133,5 @@ export class AuthenticationService {
         expiresIn,
       },
     );
-    return accessToken;
   }
 }

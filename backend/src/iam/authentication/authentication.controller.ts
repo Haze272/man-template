@@ -35,6 +35,7 @@ export class AuthenticationController {
   ) {
     const { accessToken, refreshToken, user } =
       await this.authService.signIn(signInDto);
+
     response.cookie('access_token', accessToken, {
       secure: true,
       httpOnly: true,
@@ -58,7 +59,7 @@ export class AuthenticationController {
     @Req() request: Request,
   ) {
     console.log('- - - - /authentication/autologin');
-    const { user } = await this.authService.autoLogin(
+    const { refreshToken, user } = await this.authService.autoLogin(
       request.cookies['access_token'],
     );
 
@@ -69,7 +70,7 @@ export class AuthenticationController {
       roles: user.roles,
     };
 
-    return { userData };
+    return { refreshToken, userData };
   }
 
   @HttpCode(HttpStatus.OK)
@@ -79,8 +80,10 @@ export class AuthenticationController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Get('signout')
-  async logout(@Res({ passthrough: true }) res: Response) {
-    res.cookie('access_token', '', { expires: new Date() });
+  @Post('logout')
+  logout(@Res({ passthrough: true }) res: Response) {
+    res.clearCookie('access_token');
+
+    return;
   }
 }

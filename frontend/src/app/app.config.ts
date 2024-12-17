@@ -23,9 +23,7 @@ export const appConfig: ApplicationConfig = {
         });
       }
 
-
       console.info('App initialized!');
-      console.log('config:', configService.config);
 
       return true;
     }),

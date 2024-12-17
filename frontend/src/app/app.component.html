@@ -3,7 +3,7 @@
   <div>Account: {{ user?.email ?? 'N/A'  }}</div>
   <div>id: {{ user?.id ?? 'N/A'  }}</div>
   <div>Roles: {{ user?.roles ?? 'N/A' | json }}</div>
-  <button (click)="authService.logout()">Exit</button>
+  <button (click)="logout()">Exit</button>
 </div>
 
 <ul>

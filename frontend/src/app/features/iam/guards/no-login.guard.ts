@@ -13,7 +13,8 @@ export const noLoginGuard: CanActivateFn = (route, state) => {
       take(1),
       map((user: User | null) => {
         if (user) {
-          router.navigate([`/`]);
+          console.log('[no-login.guard.ts]: person already logged!')
+          router.parseUrl(`/`);
           return false;
         }
 
