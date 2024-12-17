@@ -1,7 +1,7 @@
 <form [formGroup]="logInForm" (ngSubmit)="logIn()">
-  <input formControlName="email" type="email">
+  <input formControlName="email" type="email" placeholder="Электронная почта">
 
-  <input formControlName="password" type="password">
+  <input formControlName="password" type="password" placeholder="Пароль">
 
   <button>Войти</button>
 </form>

@@ -9,10 +9,11 @@ import {
 import {authGuard} from './features/iam/guards/auth.guard';
 import {noLoginGuard} from './features/iam/guards/no-login.guard';
 import {roleGuard} from './features/iam/guards/role.guard';
+import {ProfilePageComponent} from './features/profile/profile-page/profile-page.component';
 
 export const routes: Routes = [
   { path: '', component: TestPageComponent, pathMatch: 'full' },
-  { path: 'profile', component: TestAuthenticatedPageComponent, canActivate: [authGuard] },
+  { path: 'profile', component: ProfilePageComponent, canActivate: [authGuard] },
   {
     path: 'admin',
     component: TestHiddenPageComponent,

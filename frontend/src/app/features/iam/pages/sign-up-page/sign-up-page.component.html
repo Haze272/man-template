@@ -1,1 +1,9 @@
-<p>sign-up-page works!</p>
+<form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+  <input formControlName="username" type="text" placeholder="Имя пользователя">
+
+  <input formControlName="email" type="email" placeholder="Электронная почта">
+
+  <input formControlName="password" type="password" placeholder="Пароль">
+
+  <button>Войти</button>
+</form>

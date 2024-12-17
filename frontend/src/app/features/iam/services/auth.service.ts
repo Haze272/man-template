@@ -39,6 +39,31 @@ export class AuthService {
     );
   }
 
+  // TODO протестировать регистрацию и диалог
+  signUp(username: string, email: string, password: string) {
+    return this.http.post(
+      this.configService.config.auth.url + '/authentication/sign-up',
+      {
+        username: username,
+        email: email,
+        password: password
+      }
+    ).pipe(
+      switchMap((response: any) => {
+        if (response) {
+          this.activeUser$.next(response.userData)
+          this.localStorageService.saveData('user', JSON.stringify(response.userData));
+
+          return of({});
+        } else {
+          return throwError(() => {
+            return new Error('Регистрация не прошла успешно!')
+          })
+        }
+      })
+    );
+  }
+
   autoLogin() {
     const userJSON = this.localStorageService.getData('user');
 
