@@ -11,36 +11,24 @@
   <div class="header__side">
     <nav class="navbar">
       @if (user && authService.hasRole([3])) {
-        <a
-          [routerLink]="['calculator']"
-          routerLinkActive="active"
-          class="btn"
-        >
+        <a [routerLink]="['admin']" routerLinkActive="active">
+          Дашборд
+        </a>
+        <a [routerLink]="['admin/book/list']" routerLinkActive="active">
           Бронирования
         </a>
-        <a
-          [routerLink]="['calculator']"
-          routerLinkActive="active"
-          class="btn"
-        >
+        <a [routerLink]="['admin/room/list']" routerLinkActive="active">
           Номера
         </a>
-        <a
-          [routerLink]="['calculator']"
-          routerLinkActive="active"
-          class="btn"
-        >
+        <a [routerLink]="['admin/users']" routerLinkActive="active">
           Клиенты
         </a>
       } @else {
-        <a
-          [routerLink]="['calculator']"
-          routerLinkActive="active"
-        >
+        <a [routerLink]="['book/room/list']" routerLinkActive="active">
           Доступные номера
         </a>
         <a
-          [routerLink]="['appliance/list']"
+          [routerLink]="['book/list']"
           [routerLinkActiveOptions]="{ exact: true }"
           routerLinkActive="active"
         >
@@ -52,7 +40,7 @@
   </div>
   <div class="header__side">
     @if (user) {
-      <p-button [routerLink]="['profile']" icon="pi pi-home" aria-label="Save" />
+      <p-button [routerLink]="['profile']" icon="pi pi-user" aria-label="Save" />
     } @else {
       <p-button
         [routerLink]="['auth/log-in']"

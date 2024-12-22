@@ -13,15 +13,36 @@ import {MyBooksPageComponent} from './features/booking/my-books-page/my-books-pa
 import {RoomPageComponent} from './features/booking/room-page/room-page.component';
 import {RoomListPageComponent} from './features/booking/room-list-page/room-list-page.component';
 import {BookPageComponent} from './features/booking/book-page/book-page.component';
+import {AdminUserListPageComponent} from './features/admin/admin-user-list-page/admin-user-list-page.component';
+import {AdminRoomListPageComponent} from './features/admin/admin-room-list-page/admin-room-list-page.component';
+import {AdminBookListPageComponent} from './features/admin/admin-book-list-page/admin-book-list-page.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent, pathMatch: 'full' },
   { path: 'profile', component: ProfilePageComponent, canActivate: [authGuard] },
   {
     path: 'admin',
-    component: AdminHomePageComponent,
     canActivate: [authGuard, roleGuard],
-    data: { roles: [3] }
+    data: { roles: [3] },
+    children: [
+      { path: '', component: AdminHomePageComponent, pathMatch: 'full' },
+      {
+        path: 'book',
+        children: [
+          { path: 'list', component: AdminBookListPageComponent }
+        ]
+      },
+      {
+        path: 'room',
+        children: [
+          { path: 'list', component: AdminRoomListPageComponent }
+        ]
+      },
+      {
+        path: 'users',
+        component: AdminUserListPageComponent
+      }
+    ]
   },
 
   {
@@ -44,7 +65,7 @@ export const routes: Routes = [
         ]
       },
       { path: ':id', component: BookPageComponent },
-      { path: 'mybooks', component: MyBooksPageComponent }
+      { path: 'list', component: MyBooksPageComponent }
     ]
   },
 
