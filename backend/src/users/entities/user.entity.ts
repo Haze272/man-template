@@ -2,10 +2,11 @@ import {
   Column,
   Entity,
   JoinTable,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+  ManyToMany, ManyToOne,
+  PrimaryGeneratedColumn
+} from "typeorm";
 import { Role } from '../../roles/entities/role.entity';
+import { UserStatus } from "./user-status.entity";
 
 @Entity()
 export class User {
@@ -24,4 +25,19 @@ export class User {
   @ManyToMany(() => Role)
   @JoinTable()
   roles: Role[];
+
+  @Column()
+  name: string;
+
+  @Column()
+  surname: string;
+
+  @Column()
+  patronymic: string;
+
+  @Column()
+  phone: string;
+
+  @ManyToOne(() => UserStatus)
+  status: UserStatus;
 }
