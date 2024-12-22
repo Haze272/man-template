@@ -4,10 +4,11 @@ import {AuthService} from './features/iam/services/auth.service';
 import {AsyncPipe, JsonPipe} from '@angular/common';
 import {map, Subject, takeUntil} from 'rxjs';
 import {User} from './features/iam/models/user.model';
+import {HeaderComponent} from './shared/header/header.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, JsonPipe, AsyncPipe, RouterLink],
+  imports: [RouterOutlet, JsonPipe, AsyncPipe, RouterLink, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

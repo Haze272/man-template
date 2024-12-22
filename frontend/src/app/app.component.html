@@ -6,24 +6,6 @@
   <button (click)="logout()">Exit</button>
 </div>
 
-<ul>
-  <li>
-    <a [routerLink]="['/']">Home</a>
-  </li>
-  <li>
-    <a [routerLink]="['/profile']">Profile (authenticated only)</a>
-  </li>
-  <li>
-    <a [routerLink]="['/admin']">Admin (authenticated & authorized as admin only)</a>
-  </li>
-  <li>
-    <a [routerLink]="['/auth/log-in']">Log in (non-authenticated only)</a>
-  </li>
-  <li>
-    <a [routerLink]="['/auth/sign-up']">Sign up (non-authenticated only)</a>
-  </li>
-</ul>
-
-<hr />
+<app-header />
 
 <router-outlet />

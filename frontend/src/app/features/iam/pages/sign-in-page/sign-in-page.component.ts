@@ -3,11 +3,19 @@ import {AuthService} from '../../services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Subject, switchMap, takeUntil} from 'rxjs';
+import {Button} from 'primeng/button';
+import {IftaLabel} from 'primeng/iftalabel';
+import {InputText} from 'primeng/inputtext';
+import {Password} from 'primeng/password';
 
 @Component({
   selector: 'app-sign-in-page',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Button,
+    IftaLabel,
+    InputText,
+    Password
   ],
   templateUrl: './sign-in-page.component.html',
   styleUrl: './sign-in-page.component.scss',

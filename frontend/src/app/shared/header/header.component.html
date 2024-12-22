@@ -1,0 +1,65 @@
+@let user = authService.activeUser$ | async;
+<header class="header">
+  <div class="header__side">
+    <div class="logo">
+      <a [routerLink]="['/']" class="logo__link">
+        <img src="assets/img/logo.png" alt="navi" class="logo__image">
+      </a>
+    </div>
+  </div>
+
+  <div class="header__side">
+    <nav class="navbar">
+      @if (user && authService.hasRole([3])) {
+        <a
+          [routerLink]="['calculator']"
+          routerLinkActive="active"
+          class="btn"
+        >
+          Бронирования
+        </a>
+        <a
+          [routerLink]="['calculator']"
+          routerLinkActive="active"
+          class="btn"
+        >
+          Номера
+        </a>
+        <a
+          [routerLink]="['calculator']"
+          routerLinkActive="active"
+          class="btn"
+        >
+          Клиенты
+        </a>
+      } @else {
+        <a
+          [routerLink]="['calculator']"
+          routerLinkActive="active"
+        >
+          Доступные номера
+        </a>
+        <a
+          [routerLink]="['appliance/list']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLinkActive="active"
+        >
+          Мои бронирования
+        </a>
+      }
+
+    </nav>
+  </div>
+  <div class="header__side">
+    @if (user) {
+      <p-button [routerLink]="['profile']" icon="pi pi-home" aria-label="Save" />
+    } @else {
+      <p-button
+        [routerLink]="['auth/log-in']"
+        [link]="true"
+        icon="pi pi-user"
+        label="Войти"
+      />
+    }
+  </div>
+</header>

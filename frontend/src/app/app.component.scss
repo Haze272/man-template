@@ -1,7 +1,8 @@
 .test-info {
   position: fixed;
-  top: var(--spacing-03);
+  bottom: var(--spacing-03);
   right: var(--spacing-03);
+  z-index: 9999;
 
   width: 200px;
   min-height: 200px;
@@ -10,7 +11,7 @@
   padding: var(--spacing-03);
   border-radius: 8px;
 
-  background-color: var(--color-primary);
+  background-color: var(--overlay-background);
   color: white;
 
   display: flex;

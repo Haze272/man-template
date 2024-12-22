@@ -5,6 +5,10 @@ import {routes} from './app.routes';
 import {AuthService} from './features/iam/services/auth.service';
 import {ConfigService} from './features/config/config.service';
 import {provideHttpClient} from '@angular/common/http';
+import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
+import { providePrimeNG } from 'primeng/config';
+import MyPreset from './theme';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,5 +31,14 @@ export const appConfig: ApplicationConfig = {
 
       return true;
     }),
+    provideAnimationsAsync(),
+    providePrimeNG({
+      theme: {
+        preset: MyPreset,
+        options: {
+          darkModeSelector: '.dark',
+        }
+      }
+    })
   ]
 };
