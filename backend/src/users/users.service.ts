@@ -7,17 +7,20 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdateUserRolesDto } from './dto/update-user-roles.dto';
 import { ActiveUserData } from '../iam/models/active-user-data.model';
+import { HashingService } from "../iam/hashing/hashing.service";
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private readonly usersRepository: Repository<User>,
     @InjectRepository(Role) private readonly rolesRepository: Repository<Role>,
+    private readonly hashingService: HashingService,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
     try {
       const user: CreateUserDto & { roles?: Role[] } = createUserDto;
+      user.password = await this.hashingService.hash(createUserDto.password);
       user.roles = [await this.rolesRepository.findOneBy({ name: 'user' })];
       return await this.usersRepository.save(user);
     } catch (err) {
