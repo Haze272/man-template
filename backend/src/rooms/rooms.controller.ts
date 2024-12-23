@@ -10,7 +10,10 @@ import {
 import { RoomsService } from './rooms.service';
 import { CreateRoomDto } from './dto/create-room-dto';
 import { UpdateRoomDto } from './dto/update-room-dto';
+import { Auth } from '../iam/authentication/auth.decorator';
+import { AuthType } from '../iam/authentication/auth-type.enum';
 
+@Auth(AuthType.None)
 @Controller('rooms')
 export class RoomsController {
   constructor(private readonly roomsService: RoomsService) {}
