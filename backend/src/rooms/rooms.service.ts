@@ -61,23 +61,54 @@ export class RoomsService {
   }
 
   findOne(id: number) {
-    return this.roomRepository.findOne({
-      where: { id: id },
-      relations: {
-        roomType: true,
-        amenities: true,
-      },
-    });
+    try {
+      return this.roomRepository
+        .findOne({
+          where: { id: id },
+          relations: {
+            roomType: true,
+            amenities: true,
+          },
+        })
+        .catch((err) => {
+          throw new BadGatewayException(`Номер id=${id} не найден`);
+        });
+    } catch (err) {
+      throw err;
+    }
   }
 
   async update(id: number, updateRoomDto: UpdateRoomDto) {
     try {
-      const room: Room = await this.roomRepository.findOneOrFail({
+      const room = await this.roomRepository.findOneOrFail({
         where: { id: id },
       });
 
       if (!room) {
         throw new BadGatewayException(`Номер id=${id} не найден`);
+      }
+
+      if (updateRoomDto.roomTypeId) {
+        room.roomType = await this.roomTypeRepository.findOneBy({
+          id: updateRoomDto.roomTypeId,
+        });
+      }
+      if (updateRoomDto.amenityIds) {
+        room.amenities = await Promise.all(
+          updateRoomDto.amenityIds.map(async (amenityId): Promise<Amenity> => {
+            const amenity = await this.amenityRepository.findOneOrFail({
+              where: { id: amenityId },
+            });
+
+            if (!amenity) {
+              throw new BadGatewayException(
+                `Удобство id=${amenityId} не найдено`,
+              );
+            }
+
+            return amenity;
+          }),
+        );
       }
 
       const roomToUpdate = { ...room, ...updateRoomDto };
@@ -88,7 +119,19 @@ export class RoomsService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} room`;
+  async remove(id: number) {
+    try {
+      const room: Room = await this.roomRepository.findOneOrFail({
+        where: { id: id },
+      });
+
+      if (!room) {
+        throw new BadGatewayException(`Комната id=${id} не найдена`);
+      }
+
+      await this.roomRepository.remove(room);
+    } catch (err) {
+      throw err;
+    }
   }
 }

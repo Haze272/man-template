@@ -42,8 +42,8 @@ export class UsersController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  remove(@Param('id') id: string, @ActiveUser() user: ActiveUserData) {
+    return this.usersService.remove(+id, user);
   }
 
   @Patch(':id/roles')
