@@ -1,7 +1,13 @@
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { RoomType } from "./room-type.entity";
-import { Amenity } from "./amenity.entity";
-
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { RoomType } from './room-type.entity';
+import { Amenity } from './amenity.entity';
 
 @Entity()
 export class Room {

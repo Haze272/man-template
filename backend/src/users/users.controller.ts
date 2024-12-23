@@ -30,7 +30,7 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Roles(['user-pro'])
+  // @Roles(['user'])
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(+id);
@@ -51,6 +51,7 @@ export class UsersController {
     @Param('id') id: string,
     @Body() updateUserRolesDto: UpdateUserRolesDto,
   ) {
+    console.log(updateUserRolesDto);
     return this.usersService.updateRoles(+id, updateUserRolesDto);
   }
 }

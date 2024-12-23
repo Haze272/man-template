@@ -14,13 +14,20 @@ export class UsersService {
     @InjectRepository(Role) private readonly rolesRepository: Repository<Role>,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  async create(createUserDto: CreateUserDto) {
+    try {
+      const user: CreateUserDto & { roles?: Role[] } = createUserDto;
+      user.roles = [await this.rolesRepository.findOneBy({ name: 'user' })];
+      return await this.usersRepository.save(user);
+    } catch (err) {
+      throw err;
+    }
   }
 
   findAll() {
     return this.usersRepository.find({
       relations: {
+        status: true,
         roles: true,
       },
     });
@@ -30,13 +37,28 @@ export class UsersService {
     return this.usersRepository.findOne({
       where: { id: id },
       relations: {
+        status: true,
         roles: true,
       },
     });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    try {
+      const user: User = await this.usersRepository.findOneOrFail({
+        where: { id: id },
+      });
+
+      if (!user) {
+        throw new BadGatewayException(`Пользователь id=${id} не найден`);
+      }
+
+      const userToUpdate = { ...user, ...updateUserDto };
+
+      return await this.usersRepository.save(userToUpdate);
+    } catch (err) {
+      throw err;
+    }
   }
 
   remove(id: number) {

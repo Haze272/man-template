@@ -1,7 +1,7 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { BookStatus } from "./book-status.entity";
-import { User } from "../../users/entities/user.entity";
-import { Room } from "../../rooms/entities/room.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BookStatus } from './book-status.entity';
+import { User } from '../../users/entities/user.entity';
+import { Room } from '../../rooms/entities/room.entity';
 
 @Entity()
 export class Book {

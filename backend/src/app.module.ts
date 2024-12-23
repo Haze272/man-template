@@ -32,10 +32,6 @@ import { BookingsModule } from './bookings/bookings.module';
     UsersModule,
     RouterModule.register([
       {
-        path: 'users',
-        module: UsersModule,
-      },
-      {
         path: 'roles',
         module: RolesModule,
       },
