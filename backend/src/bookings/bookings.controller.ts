@@ -10,6 +10,8 @@ import {
 import { BookingsService } from './bookings.service';
 import { CreateBookDto } from './dto/create-book-dto';
 import { UpdateBookDto } from './dto/update-book-dto';
+import { ActiveUser } from "../iam/active-user.decorator";
+import { ActiveUserData } from "../iam/models/active-user-data.model";
 
 @Controller('bookings')
 export class BookingsController {
@@ -23,6 +25,11 @@ export class BookingsController {
   @Get()
   findAll() {
     return this.bookingsService.findAll();
+  }
+
+  @Get('my')
+  findAllByUserId(@ActiveUser() user: ActiveUserData) {
+    return this.bookingsService.findAllByUserId(user.sub);
   }
 
   @Get(':id')

@@ -80,6 +80,21 @@ export class BookingsService {
     });
   }
 
+  findAllByUserId(userId: number) {
+    return this.bookRepository.find({
+      where: {
+        user: {
+          id: userId,
+        },
+      },
+      relations: {
+        bookStatus: true,
+        user: true,
+        room: true,
+      },
+    });
+  }
+
   findOne(id: number) {
     try {
       return this.bookRepository
