@@ -5,10 +5,11 @@ import {AsyncPipe, JsonPipe} from '@angular/common';
 import {map, Subject, takeUntil} from 'rxjs';
 import {User} from './features/iam/models/user.model';
 import {HeaderComponent} from './shared/header/header.component';
+import {Toast} from 'primeng/toast';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, JsonPipe, AsyncPipe, HeaderComponent],
+  imports: [RouterOutlet, JsonPipe, AsyncPipe, HeaderComponent, Toast],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

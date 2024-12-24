@@ -10,8 +10,6 @@ export class RoomsService {
   private readonly http = inject(HttpClient);
   private readonly configService = inject(ConfigService);
 
-  constructor() { }
-
   getAllRooms() {
     return this.http.get<Room[]>(
       this.configService.config.bookingUrl + '/rooms',

@@ -4,12 +4,14 @@
   <div class="room-list">
     @let allRooms = allRooms$ | async;
     @for (room of allRooms; track room.id) {
-      <div class="room">
+      <div [routerLink]="['/book/room/', room.id]" class="room">
         <img [src]="room.imageUrl" [alt]="room.name" class="room__image">
         <div class="room__container">
           <div class="room__content">
 
             <h3>{{ room.name }}</h3>
+
+            <span class="room__bed-capacity">Спальных мест: {{ room.bedCapacity }}</span>
 
             <div class="room__amenity-list">
               @let roomType = room.roomType.id;
@@ -31,7 +33,7 @@
               <span class="room__price-per">&nbsp;/ за человека</span>
             </div>
 
-            <p-button label="Забронировать" />
+            <p-button (click)="bookRoom($event)" label="Забронировать" />
           </div>
         </div>
       </div>

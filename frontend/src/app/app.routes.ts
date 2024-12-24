@@ -64,8 +64,8 @@ export const routes: Routes = [
           { path: ':id', component: RoomPageComponent }
         ]
       },
-      { path: ':id', component: BookPageComponent },
-      { path: 'list', component: MyBooksPageComponent }
+      { path: 'list', component: MyBooksPageComponent },
+      { path: ':id', component: BookPageComponent, pathMatch: 'full' },
     ]
   },
 
