@@ -5,6 +5,14 @@ https://i.ibb.co/gv6kfrF/room3.webp
 https://i.ibb.co/FYSfD4B/room4.jpg
 https://i.ibb.co/zZ0dFwt/room5.jpg
 https://i.ibb.co/D1yz4Vn/room6.jpg
+https://i.ibb.co/JnBFpdd/room7.jpg
+https://i.ibb.co/0Cg088r/room8.jpg
+https://i.ibb.co/09hWLP1/room9.jpg
+https://i.ibb.co/yYq6k00/room10.jpg
+https://i.ibb.co/HYsg11B/room11.jpg
+https://i.ibb.co/RYrxsbc/room12.jpg
+https://i.ibb.co/pZTB6Lc/room13.jpg
+
 
 
 
@@ -67,17 +75,17 @@ values
 -- Стандартные номера
 ('Standard Room A', 101, 2, 'Стандартный номер с видом на лес.', 5000, 'https://i.ibb.co/qM2drpK/room1.webp', '', 1),
 ('Standard Room B', 102, 2, 'Стандартный номер с видом на озеро.', 5200, 'https://i.ibb.co/885tTyc/room2.webp', '', 1),
-('Standard Room C', 103, 2, 'Уютный стандартный номер с видом на сад.', 5100, 'https://i.ibb.co/LYz1YtF/room7.jpg', '', 1),
-('Standard Room D', 104, 2, 'Стандартный номер с рабочим местом.', 5200, 'https://i.ibb.co/n3J1Nx3/room8.jpg', '', 1),
-('Standard Room E', 105, 1, 'Компактный стандартный номер для одного.', 4500, 'https://i.ibb.co/5GT4LPm/room9.jpg', '', 1),
-('Standard Room F', 106, 2, 'Стандартный номер с небольшим балконом.', 5300, 'https://i.ibb.co/51n9wjx/room10.jpg', '', 1),
+('Standard Room C', 103, 2, 'Уютный стандартный номер с видом на сад.', 5100, 'https://i.ibb.co/JnBFpdd/room7.jpg', '', 1),
+('Standard Room D', 104, 2, 'Стандартный номер с рабочим местом.', 5200, 'https://i.ibb.co/0Cg088r/room8.jpg', '', 1),
+('Standard Room E', 105, 1, 'Компактный стандартный номер для одного.', 4500, 'https://i.ibb.co/09hWLP1/room9.jpg', '', 1),
+('Standard Room F', 106, 2, 'Стандартный номер с небольшим балконом.', 5300, 'https://i.ibb.co/yYq6k00/room10.jpg', '', 1),
 
 -- Номера повышенного комфорта
-('Comfort Room C', 203, 3, 'Номер повышенного комфорта с видом на горы.', 7800, 'https://i.ibb.co/qRFDGzk/room11.jpg', '', 2),
-('Comfort Room D', 204, 3, 'Номер повышенного комфорта с мини-баром.', 7900, 'https://i.ibb.co/4NzjQdv/room12.jpg', '', 2),
-('Comfort Room E', 205, 3, 'Комфортный номер с балконом и джакузи.', 8500, 'https://i.ibb.co/hfrp68F/room13.jpg', '', 2);
 ('Comfort Room A', 201, 3, 'Номер повышенного комфорта с балконом.', 7500, 'https://i.ibb.co/gv6kfrF/room3.webp', '', 2),
 ('Comfort Room B', 202, 3, 'Просторный номер повышенного комфорта с камином.', 8000, 'https://i.ibb.co/FYSfD4B/room4.jpg', '', 2),
+('Comfort Room C', 203, 3, 'Номер повышенного комфорта с видом на горы.', 7800, 'https://i.ibb.co/HYsg11B/room11.jpg', '', 2),
+('Comfort Room D', 204, 3, 'Номер повышенного комфорта с мини-баром.', 7900, 'https://i.ibb.co/RYrxsbc/room12.jpg', '', 2),
+('Comfort Room E', 205, 3, 'Комфортный номер с балконом и джакузи.', 8500, 'https://i.ibb.co/pZTB6Lc/room13.jpg', '', 2);
 
 -- Люкс
 ('Luxury Suite A', 301, 4, 'Роскошный люкс с панорамным видом и сауной.', 15000, 'https://i.ibb.co/zZ0dFwt/room5.jpg', '', 3),
