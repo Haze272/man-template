@@ -7,7 +7,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdateUserRolesDto } from './dto/update-user-roles.dto';
 import { ActiveUserData } from '../iam/models/active-user-data.model';
-import { HashingService } from "../iam/hashing/hashing.service";
+import { HashingService } from '../iam/hashing/hashing.service';
 
 @Injectable()
 export class UsersService {

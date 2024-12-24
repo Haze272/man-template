@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Role } from '../../roles/entities/role.entity';
 import { UserStatus } from './user-status.entity';
+import { classToPlain, Exclude, instanceToPlain } from "class-transformer";
 
 @Entity()
 export class User {
@@ -20,6 +21,7 @@ export class User {
   @Column({ unique: true })
   email: string;
 
+  @Exclude({ toPlainOnly: true })
   @Column()
   password: string;
 
@@ -41,4 +43,8 @@ export class User {
 
   @ManyToOne(() => UserStatus)
   status: UserStatus;
+
+  toJSON() {
+    return instanceToPlain(this);
+  }
 }

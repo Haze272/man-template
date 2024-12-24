@@ -6,8 +6,6 @@ import { RoomType } from './entities/room-type.entity';
 import { Amenity } from './entities/amenity.entity';
 import { CreateRoomDto } from './dto/create-room-dto';
 import { UpdateRoomDto } from './dto/update-room-dto';
-import { CreateUserDto } from '../users/dto/create-user.dto';
-import { Role } from '../roles/entities/role.entity';
 
 @Injectable()
 export class RoomsService {

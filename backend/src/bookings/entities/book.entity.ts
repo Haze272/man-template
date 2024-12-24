@@ -17,16 +17,16 @@ export class Book {
   @ManyToOne(() => Room)
   room: Room;
 
-  @Column()
+  @Column({ type: 'datetime' })
   dateStart: Date;
 
-  @Column()
+  @Column({ type: 'datetime' })
   dateEnd: Date;
 
   @Column()
   persons: number;
 
-  @Column()
+  @Column({ type: 'datetime' })
   date: Date;
 
   @Column()
