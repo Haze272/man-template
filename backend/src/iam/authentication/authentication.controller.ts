@@ -22,8 +22,10 @@ export class AuthenticationController {
   constructor(private readonly authService: AuthenticationService) {}
 
   @Post('sign-up')
-  signUp(@Body() signUpDto: SignUpDto) {
-    return this.authService.signUp(signUpDto);
+  async signUp(@Body() signUpDto: SignUpDto) {
+    await this.authService.signUp(signUpDto);
+
+    return {};
   }
 
   // Cookies realization

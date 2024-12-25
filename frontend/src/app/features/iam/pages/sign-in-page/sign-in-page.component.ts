@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Subject, switchMap, takeUntil} from 'rxjs';
 import {Button} from 'primeng/button';
@@ -15,7 +15,8 @@ import {Password} from 'primeng/password';
     Button,
     IftaLabel,
     InputText,
-    Password
+    Password,
+    RouterLink
   ],
   templateUrl: './sign-in-page.component.html',
   styleUrl: './sign-in-page.component.scss',

@@ -1,16 +1,6 @@
-.dialog {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-04);
-
-  &__form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-03);
-  }
-
-  &__actions {
-    display: flex;
-    gap: var(--spacing-03);
-  }
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 350px));
+  justify-content: space-between;
+  gap: var(--spacing-06);
 }

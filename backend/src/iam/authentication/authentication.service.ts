@@ -35,6 +35,10 @@ export class AuthenticationService {
       user.email = signUpDto.email;
       user.password = await this.hashingService.hash(signUpDto.password);
       user.roles = [await this.rolesRepository.findOneBy({ name: 'user' })];
+      user.name = signUpDto.name;
+      user.surname = signUpDto.surname;
+      user.patronymic = signUpDto.patronymic;
+      user.phone = signUpDto.phone;
 
       await this.usersRepository.save(user);
     } catch (err) {

@@ -44,14 +44,10 @@ export class AuthService {
   }
 
   // TODO протестировать регистрацию и диалог
-  signUp(username: string, email: string, password: string) {
+  signUp(userCred: Partial<User>) {
     return this.http.post(
       this.configService.config.auth.url + '/authentication/sign-up',
-      {
-        username: username,
-        email: email,
-        password: password
-      },
+      userCred,
       {
         withCredentials: true
       }

@@ -9,4 +9,9 @@ export class SignUpDto {
 
   @MinLength(10)
   password: string;
+
+  name: string;
+  surname: string;
+  patronymic: string;
+  phone: string;
 }

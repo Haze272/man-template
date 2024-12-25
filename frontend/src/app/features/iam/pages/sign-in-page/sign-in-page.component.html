@@ -10,9 +10,13 @@
       </p-iftalabel>
 
       <p-iftalabel>
-        <p-password inputId="password" formControlName="password" />
+        <p-password [feedback]="false" inputId="password" formControlName="password" />
         <label for="password">Пароль</label>
       </p-iftalabel>
+
+      <p class="link">
+        Нет аккаунта? <a [routerLink]="['/auth/sign-up']">Зарегистрироваться</a>
+      </p>
 
       <p-button label="Войти" type="submit" />
     </form>
