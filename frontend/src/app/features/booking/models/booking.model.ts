@@ -4,8 +4,8 @@ import {Room} from './room.model';
 
 export type Booking = {
   id: number;
-  dateStart: Date;
-  dateEnd: Date;
+  dateStart: Date | string;
+  dateEnd: Date | string;
   date: Date;
   persons: number;
   comment: string;

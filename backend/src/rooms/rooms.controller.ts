@@ -28,6 +28,16 @@ export class RoomsController {
     return this.roomsService.findAll();
   }
 
+  @Get('amenities')
+  findAllAmenities() {
+    return this.roomsService.findAllAmenities();
+  }
+
+  @Get('types')
+  findAllRoomTypes() {
+    return this.roomsService.findAllRoomTypes();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.roomsService.findOne(+id);

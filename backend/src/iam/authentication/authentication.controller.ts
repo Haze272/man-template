@@ -47,6 +47,11 @@ export class AuthenticationController {
       username: user.username,
       email: user.email,
       roles: user.roles,
+      name: user.name,
+      surname: user.surname,
+      patronymic: user.patronymic,
+      phone: user.phone,
+      status: user.status,
     };
 
     return { refreshToken, userData };
@@ -68,6 +73,11 @@ export class AuthenticationController {
       username: user.username,
       email: user.email,
       roles: user.roles,
+      name: user.name,
+      surname: user.surname,
+      patronymic: user.patronymic,
+      phone: user.phone,
+      status: user.status,
     };
 
     return { refreshToken, userData };

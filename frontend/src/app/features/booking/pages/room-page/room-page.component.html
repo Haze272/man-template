@@ -1,1 +1,41 @@
-<p>room-page works!</p>
+<section class="page">
+  @let room = room$ | async;
+  @if (room) {
+    <div class="room__wrapper">
+      <div class="room__content">
+        <h1 class="room__header">
+          {{ room.name }}
+          @let roomType = room.roomType.id;
+          <div
+            [ngClass]="{'standart': roomType === 1, 'confort': roomType === 2, 'lux': roomType === 3}"
+            class="room__type"
+          >
+            {{ room.roomType.name }}
+          </div>
+        </h1>
+
+
+
+        <div class="room__amenity-list">
+          @for (amenity of room.amenities; track amenity.id) {
+            <div class="room__amenity">{{ amenity.name }}</div>
+          }
+        </div>
+
+        <p>Номер: {{ room.number }}</p>
+
+        <p>Спальные места: {{ room.bedCapacity }}</p>
+
+        <p>{{ room.description }}</p>
+
+        <p>Цена за одну персону/ночь: {{ room.pricePerNight }}</p>
+
+        <p-button [routerLink]="'/book/' + room.id" label="Забронировать" />
+      </div>
+
+      <div class="room__image">
+        <img [src]="room.imageUrl" [alt]="room.name">
+      </div>
+    </div>
+  }
+</section>

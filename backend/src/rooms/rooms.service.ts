@@ -58,6 +58,14 @@ export class RoomsService {
     });
   }
 
+  findAllAmenities() {
+    return this.amenityRepository.find();
+  }
+
+  findAllRoomTypes() {
+    return this.roomTypeRepository.find();
+  }
+
   findOne(id: number) {
     try {
       return this.roomRepository

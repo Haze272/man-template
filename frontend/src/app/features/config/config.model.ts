@@ -7,4 +7,8 @@ export type Config = {
   }
 
   bookingUrl: string;
+
+  admin: {
+    url: string;
+  }
 }

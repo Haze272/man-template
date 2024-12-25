@@ -1,0 +1,19 @@
+.book {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-06);
+
+
+  &__room {
+    a {
+      text-decoration: underline;
+      color: var(--primary-color);
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-05);
+  }
+}

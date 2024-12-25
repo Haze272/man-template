@@ -1,1 +1,43 @@
-<p>book-page works!</p>
+<section class="page">
+  <h1>Бронирование номера</h1>
+
+  <div class="book">
+    @let room = room$ | async;
+
+    @if (room) {
+      <p class="book__room"><a [routerLink]="['/book/room/', room.id]">Номер: {{ room.id }}</a></p>
+      <p-iftalabel>
+        <input pInputText [value]="room?.name" disabled id="room-number" autocomplete="off"/>
+
+        <label for="room-number">Номер</label>
+      </p-iftalabel>
+
+      <form [formGroup]="bookForm" (ngSubmit)="submit(room.id)" class="book__form">
+        <p>Период</p>
+        <p-iftalabel>
+          <p-date-picker
+            [readonlyInput]="true"
+            [showIcon]="true"
+            formControlName="period"
+            selectionMode="range"
+            dateFormat="dd.mm.yy"
+            inputId="period"
+          />
+          <label for="period">Период</label>
+        </p-iftalabel>
+
+        <p-iftalabel>
+          <p-input-number inputId="persons" formControlName="persons"/>
+          <label for="persons">Количество персон</label>
+        </p-iftalabel>
+
+        <p-iftalabel>
+          <textarea id="comment" rows="5" cols="30" pTextarea formControlName="comment"></textarea>
+          <label for="comment">Комментарий</label>
+        </p-iftalabel>
+
+        <p-button type="submit" label="Забронировать"/>
+      </form>
+    }
+  </div>
+</section>

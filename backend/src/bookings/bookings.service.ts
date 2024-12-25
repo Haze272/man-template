@@ -21,17 +21,15 @@ export class BookingsService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async create(createBookDto: CreateBookDto) {
+  async create(createBookDto: CreateBookDto, userId: number) {
     try {
       const book: CreateBookDto & {
         bookStatus?: BookStatus;
         user?: User;
         room?: Room;
         date?: Date;
-        dateStart?: Date;
-        dateEnd?: Date;
       } = createBookDto;
-
+      console.log(book);
       book.bookStatus = await this.bookStatusRepository
         .findOneBy({
           id: 1,
@@ -42,12 +40,10 @@ export class BookingsService {
 
       book.user = await this.userRepository
         .findOneBy({
-          id: createBookDto.userId,
+          id: userId,
         })
         .catch(() => {
-          throw new BadGatewayException(
-            `Пользователь id=${createBookDto.userId} не найден`,
-          );
+          throw new BadGatewayException(`Пользователь id=${userId} не найден`);
         });
 
       book.room = await this.roomRepository
@@ -60,8 +56,8 @@ export class BookingsService {
           );
         });
 
-      book.dateStart = new Date(book.dateStartInt);
-      book.dateEnd = new Date(book.dateEndInt);
+      book.dateStart = new Date(book.dateStart);
+      book.dateEnd = new Date(book.dateEnd);
       book.date = new Date();
 
       return await this.bookRepository.save(book);
@@ -78,6 +74,10 @@ export class BookingsService {
         room: true,
       },
     });
+  }
+
+  findAllBookStatuses() {
+    return this.bookStatusRepository.find();
   }
 
   findAllByUserId(userId: number) {
@@ -136,11 +136,11 @@ export class BookingsService {
           });
       }
 
-      if (updateBookDto.dateStartInt) {
-        book.dateStart = new Date(updateBookDto.dateStartInt);
+      if (updateBookDto.dateStart) {
+        book.dateStart = new Date(updateBookDto.dateStart);
       }
-      if (updateBookDto.dateEndInt) {
-        book.dateEnd = new Date(updateBookDto.dateEndInt);
+      if (updateBookDto.dateEnd) {
+        book.dateEnd = new Date(updateBookDto.dateEnd);
       }
 
       const bookToUpdate = { ...book, ...updateBookDto };

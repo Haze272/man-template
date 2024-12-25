@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {AdminService} from '../../services/admin.service';
 
 @Component({
   selector: 'app-admin-home-page',
@@ -8,5 +9,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdminHomePageComponent {
+  private readonly adminService = inject(AdminService);
 
 }

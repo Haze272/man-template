@@ -1,8 +1,7 @@
 export class CreateBookDto {
-  userId: number;
   roomId: number;
-  dateStartInt: number;
-  dateEndInt: number;
+  dateStart: string | Date;
+  dateEnd: string | Date;
   persons: number;
   comment: string;
 }

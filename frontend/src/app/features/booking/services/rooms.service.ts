@@ -16,4 +16,11 @@ export class RoomsService {
       { withCredentials: true }
     )
   }
+
+  getRoomById(roomId: number) {
+    return this.http.get<Room>(
+      this.configService.config.bookingUrl + `/rooms/${roomId}`,
+      { withCredentials: true }
+    );
+  }
 }

@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { Role } from '../../roles/entities/role.entity';
 import { UserStatus } from './user-status.entity';
-import { classToPlain, Exclude, instanceToPlain } from "class-transformer";
+import { classToPlain, Exclude, instanceToPlain } from 'class-transformer';
 
 @Entity()
 export class User {

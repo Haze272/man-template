@@ -4,5 +4,8 @@
     "autologin": true,
     "url": "http://localhost:3000/api/v1"
   },
-  "bookingUrl": "http://localhost:3000/api/v1"
+  "bookingUrl": "http://localhost:3000/api/v1",
+  "admin": {
+    "url": "http://localhost:3000/api/v1"
+  }
 }

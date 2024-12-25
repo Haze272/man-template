@@ -40,6 +40,22 @@ export class SignInPageComponent implements OnInit, OnDestroy {
         this.redirectToAfterLogin = params['redirectTo'];
       });
 
+    setTimeout(() => {
+      this.authService.activeUser$
+        .pipe(takeUntil(this.#destroy$))
+        .subscribe(user => {
+          if (user) {
+            console.log('[no-login.guard.ts]: person already logged!')
+
+            if (this.redirectToAfterLogin) {
+              this.router.navigateByUrl(this.redirectToAfterLogin);
+            } else {
+              this.router.navigateByUrl(`/`);
+            }
+          }
+        });
+    }, 2000);
+
     this.logInForm = new FormGroup({
       email: new FormControl<string | null>(null, {validators: [Validators.required, Validators.email]}),
       password: new FormControl<string | null>(null, Validators.required),

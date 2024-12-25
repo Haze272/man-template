@@ -10,21 +10,29 @@ import {
 import { BookingsService } from './bookings.service';
 import { CreateBookDto } from './dto/create-book-dto';
 import { UpdateBookDto } from './dto/update-book-dto';
-import { ActiveUser } from "../iam/active-user.decorator";
-import { ActiveUserData } from "../iam/models/active-user-data.model";
+import { ActiveUser } from '../iam/active-user.decorator';
+import { ActiveUserData } from '../iam/models/active-user-data.model';
 
 @Controller('bookings')
 export class BookingsController {
   constructor(private readonly bookingsService: BookingsService) {}
 
   @Post()
-  create(@Body() createBookDto: CreateBookDto) {
-    return this.bookingsService.create(createBookDto);
+  create(
+    @Body() createBookDto: CreateBookDto,
+    @ActiveUser() user: ActiveUserData,
+  ) {
+    return this.bookingsService.create(createBookDto, user.sub);
   }
 
   @Get()
   findAll() {
     return this.bookingsService.findAll();
+  }
+
+  @Get('statuses')
+  findAllBookStatuses() {
+    return this.bookingsService.findAllBookStatuses();
   }
 
   @Get('my')
