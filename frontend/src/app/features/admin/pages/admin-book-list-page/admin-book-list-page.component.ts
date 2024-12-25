@@ -35,7 +35,8 @@ import {DatePicker} from 'primeng/datepicker';
     Textarea,
     DatePipe,
     RouterLink,
-    DatePicker
+    DatePicker,
+    InputText
   ],
   templateUrl: './admin-book-list-page.component.html',
   styleUrl: './admin-book-list-page.component.scss',
@@ -62,9 +63,9 @@ export class AdminBookListPageComponent {
     persons: new FormControl<number | null>(null),
     comment: new FormControl<string | null>(null),
     statusId: new FormControl<number | null>(null),
-    userId: new FormControl<number | null>(null),
-    roomId: new FormControl<number | null>(null),
-    total: new FormControl<number | null>(null),
+    userId: new FormControl<number | null>({ value: 0, disabled: true }),
+    roomId: new FormControl<number | null>({ value: 0, disabled: true }),
+    total: new FormControl<number | null>({ value: 0, disabled: true }),
   });
 
   ngOnInit() {
