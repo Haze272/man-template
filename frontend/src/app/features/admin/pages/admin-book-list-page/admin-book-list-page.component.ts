@@ -119,7 +119,7 @@ export class AdminBookListPageComponent {
             statusId: book.bookStatus.id,
             userId: book.user.id,
             roomId: book.room.id,
-            total: book.room.pricePerNight * book.persons * this.calculateNights(book.dateStart.toString(), book.dateEnd.toString())
+            total: book.room.pricePerNight * book.persons * this.calculateNights(book.dateStart as string, book.dateEnd as string)
           });
         }
       });

@@ -37,10 +37,7 @@
           <td>{{ book.user ? book.user.surname + ' ' + book.user.name[0] + '.' + book.user.patronymic[0] + '.' : 'N/A' }}</td>
           <td><a [routerLink]="['/book/rooms/', book.room.id]">{{ book.room.name }}</a></td>
           <td>
-            {{ editForm.controls.total.value }}
-            <p>
-              {{ book.room.pricePerNight }} * {{ book.persons }} * ( {{ calculateNights(book.dateStart, book.dateEnd) }} )
-            </p>
+            {{ book.room.pricePerNight * book.persons * calculateNights(book.dateStart, book.dateEnd) }}
           </td>
           <td>
             <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" (click)="openEditDialog(book.id)" title="Редактировать" />
