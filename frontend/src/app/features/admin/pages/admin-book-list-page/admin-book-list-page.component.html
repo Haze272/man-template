@@ -14,12 +14,12 @@
       <ng-template #header>
         <tr>
           <th>ID</th>
-          <th>Период</th>
-          <th>Дата бронирование</th>
+          <th>Дата бронирования</th>
+          <th>Дата оформления бронирования</th>
           <th>Персон</th>
           <th>Статус</th>
           <th>Пользователь</th>
-          <th>Комната</th>
+          <th>Стол</th>
           <th>Итоговая стоимость</th>
           <th>
             Действия
@@ -30,14 +30,14 @@
       <ng-template #body let-book>
         <tr>
           <td>{{ book.id }}</td>
-          <td>{{ book.dateStart | date : 'dd.MM.yyyy' }} - {{ book.dateEnd | date : 'dd.MM.yyyy' }}</td>
+          <td>{{ book.bookDate | date : 'dd.MM.yyyy' }}</td>
           <td>{{ book.date | date : 'dd.MM.yyyy HH:mm:ss' }}</td>
           <td>{{ book.persons}}</td>
           <td>{{ book.bookStatus.name }}</td>
-          <td>{{ book.user ? book.user.surname + ' ' + book.user.name[0] + '.' + book.user.patronymic[0] + '.' : 'N/A' }}</td>
-          <td><a [routerLink]="['/book/rooms/', book.room.id]">{{ book.room.name }}</a></td>
+          <td>{{ book.user ? book.user.surname + ' ' + book.user.name : 'N/A' }}</td>
+          <td><a [routerLink]="['/book/tables/', book.table.id]">{{ book.table.name }}</a></td>
           <td>
-            {{ book.room.pricePerNight * book.persons * calculateNights(book.dateStart, book.dateEnd) }}
+            {{ book.table.bookPrice }}
           </td>
           <td>
             <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" (click)="openEditDialog(book.id)" title="Редактировать" />
@@ -62,12 +62,11 @@
         <p-date-picker
           [readonlyInput]="true"
           [showIcon]="true"
-          formControlName="period"
-          selectionMode="range"
+          formControlName="bookDate"
           dateFormat="dd.mm.yy"
-          inputId="period"
+          inputId="bookDate"
         />
-        <label for="period">Период</label>
+        <label for="bookDate">Дата бронирования</label>
       </p-iftalabel>
 
       <p-iftalabel>
@@ -79,7 +78,7 @@
           inputId="date"
           [disabled]="true"
         />
-        <label for="date">Дата бронирования</label>
+        <label for="date">Дата оформления бронирования</label>
       </p-iftalabel>
 
       <p-iftalabel>
@@ -90,11 +89,6 @@
       <p-iftalabel>
         <textarea id="comment" rows="5" cols="30" pTextarea formControlName="comment"></textarea>
         <label for="comment">Комментарий к бронированию</label>
-      </p-iftalabel>
-
-      <p-iftalabel>
-        <p-input-number inputId="persons" formControlName="persons"/>
-        <label for="persons">Спальных мест</label>
       </p-iftalabel>
 
       <p-iftalabel class="w-full md:w-56">
@@ -124,15 +118,15 @@
 
       <p-iftalabel class="w-full md:w-56">
         <p-select
-          formControlName="roomId"
-          inputId="roomId"
-          [options]="rooms"
+          formControlName="tableId"
+          inputId="tableId"
+          [options]="tables"
           optionLabel="name"
           optionValue="id"
           styleClass="w-full"
           [disabled]="true"
         />
-        <label for="roomId">Комната</label>
+        <label for="tableId">Стол</label>
       </p-iftalabel>
 
       <p-iftalabel>

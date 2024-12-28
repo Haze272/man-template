@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {AdminService} from '../../services/admin.service';
 import {MessageService} from 'primeng/api';
 import {Subject, switchMap, takeUntil} from 'rxjs';
 import {BookingStatus} from '../../../booking/models/booking-status.model';
-import {Room} from '../../../booking/models/room.model';
+import {Table} from '../../../booking/models/table.model';
 import {User} from '../../../iam/models/user.model';
 import {Booking} from '../../../booking/models/booking.model';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -36,19 +36,18 @@ import {DatePicker} from 'primeng/datepicker';
     DatePipe,
     RouterLink,
     DatePicker,
-    InputText
   ],
   templateUrl: './admin-book-list-page.component.html',
   styleUrl: './admin-book-list-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AdminBookListPageComponent {
+export class AdminBookListPageComponent implements OnInit, OnDestroy {
   private readonly messageService = inject(MessageService);
   private readonly adminService = inject(AdminService);
 
   private destroy$ = new Subject<void>();
 
-  rooms: Room[] = [];
+  tables: Table[] = [];
   bookStatuses: BookingStatus[] = [];
   users: User[] = [];
 
@@ -58,13 +57,13 @@ export class AdminBookListPageComponent {
   editDialog: boolean = false;
   editForm = new FormGroup({
     id: new FormControl<number | null>(null),
-    period: new FormControl<Date[] | string[] | null>(null),
+    bookDate: new FormControl<Date | string[] | null>(null),
     date: new FormControl<Date | string  | null>(null),
     persons: new FormControl<number | null>(null),
     comment: new FormControl<string | null>(null),
     statusId: new FormControl<number | null>(null),
     userId: new FormControl<number | null>({ value: 0, disabled: true }),
-    roomId: new FormControl<number | null>({ value: 0, disabled: true }),
+    tableId: new FormControl<number | null>({ value: 0, disabled: true }),
     total: new FormControl<number | null>({ value: 0, disabled: true }),
   });
 
@@ -86,10 +85,10 @@ export class AdminBookListPageComponent {
         this.users = users;
       });
 
-    this.adminService.getAllRooms()
+    this.adminService.getAllTables()
       .pipe(takeUntil(this.destroy$))
-      .subscribe((rooms) => {
-        this.rooms = rooms;
+      .subscribe((tables) => {
+        this.tables = tables;
       });
 
     this.adminService.getAllBookingStatuses()
@@ -113,35 +112,17 @@ export class AdminBookListPageComponent {
         next: book => {
           this.editForm.setValue({
             id: book.id,
-            period: [new Date(book.dateStart), new Date(book.dateEnd)],
+            bookDate: new Date(book.bookDate),
             date: new Date(book.date),
             persons: book.persons,
             comment: book.comment,
             statusId: book.bookStatus.id,
             userId: book.user.id,
-            roomId: book.room.id,
-            total: book.room.pricePerNight * book.persons * this.calculateNights(book.dateStart as string, book.dateEnd as string)
+            tableId: book.table.id,
+            total: book.table.bookPrice
           });
         }
       });
-  }
-
-  calculateNights(startDate: string, endDate: string): number {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-
-    // Проверка на корректность дат
-    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-      throw new Error("Invalid date format");
-    }
-
-    // Разница в миллисекундах
-    const diffInMs = end.getTime() - start.getTime();
-
-    // Разница в днях (1 ночь = 1 день)
-    const nights = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
-
-    return nights;
   }
 
   cancelEditDialog() {
@@ -153,8 +134,7 @@ export class AdminBookListPageComponent {
     this.adminService.updateBooking(
       this.editForm.controls['id'].value as number,
       {
-        dateStartInt: this.editForm.controls['period'].value![0].toString(),
-        dateEndInt: this.editForm.controls['period'].value![1].toString(),
+        dateBookInt: this.editForm.controls['bookDate'].value!.toString(),
         persons: this.editForm.controls.persons.value ?? 0,
         comment: this.editForm.controls['comment'].value?.toString(),
         statusId: this.editForm.controls.statusId.value ?? 0,
@@ -178,7 +158,7 @@ export class AdminBookListPageComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Ошибка',
-            detail: 'Произошла ошибка! Обратитесь в поддержку',
+            detail: 'Бронирование не изменено',
             life: 3000
           });
 

@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { BookStatus } from './book-status.entity';
 import { User } from '../../users/entities/user.entity';
-import { Room } from '../../rooms/entities/room.entity';
+import { Table } from '../../tables/entities/table.entity';
 
 @Entity()
 export class Book {
@@ -14,14 +14,11 @@ export class Book {
   @ManyToOne(() => User)
   user: User;
 
-  @ManyToOne(() => Room)
-  room: Room;
+  @ManyToOne(() => Table)
+  table: Table;
 
   @Column({ type: 'datetime' })
-  dateStart: Date;
-
-  @Column({ type: 'datetime' })
-  dateEnd: Date;
+  bookDate: Date;
 
   @Column()
   persons: number;

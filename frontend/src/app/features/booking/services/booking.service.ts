@@ -29,21 +29,11 @@ export class BookingService {
   }
 
   book(data: any) {
-    // {
-    //   "userId": 4,
-    //   "roomId": 6,
-    //   "dateStartInt": "2024-12-10T21:00:00.000Z",
-    //   "dateEndInt": "2024-12-10T21:00:00.000Z",
-    //   "persons": 3,
-    //   "comment": ""
-    // }
     const formattedData: Partial<Booking> = {
-      dateStart: data.period[0],
-      dateEnd: data.period[1],
-      date: new Date(),
+      bookDate: data.bookDate,
       persons: data.persons,
       comment: data.comment,
-      room: data.roomId
+      table: data.roomId
     }
 
     return this.http.post(

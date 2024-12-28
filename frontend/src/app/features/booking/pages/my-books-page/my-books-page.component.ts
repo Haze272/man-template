@@ -11,7 +11,6 @@ import {Booking} from '../../models/booking.model';
   selector: 'app-my-books-page',
   imports: [
     AsyncPipe,
-    RouterLink,
     DatePipe,
     Button
   ],
@@ -59,7 +58,7 @@ export class MyBooksPageComponent implements OnInit, OnDestroy {
           this.messageService.add({
             severity: 'error',
             summary: 'Ошибка',
-            detail: 'Произошла ошибка! Обратитесь в поддержку',
+            detail: 'Бронирование не отменено, обратитесь в поддержку',
           });
         }
       });

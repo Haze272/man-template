@@ -2,28 +2,27 @@
   <h1>Бронирование номера</h1>
 
   <div class="book">
-    @let room = room$ | async;
+    @let table = table$ | async;
 
-    @if (room) {
-      <p class="book__room"><a [routerLink]="['/book/room/', room.id]">Номер: {{ room.id }}</a></p>
+    @if (table) {
+      <p class="book__room"><a [routerLink]="['/book/room/', table.id]">Номер: {{ table.id }}</a></p>
       <p-iftalabel>
-        <input pInputText [value]="room?.name" disabled id="room-number" autocomplete="off"/>
+        <input pInputText [value]="table?.name" disabled id="table-number" autocomplete="off"/>
 
-        <label for="room-number">Номер</label>
+        <label for="table-number">Столик</label>
       </p-iftalabel>
 
-      <form [formGroup]="bookForm" (ngSubmit)="submit(room.id)" class="book__form">
+      <form [formGroup]="bookForm" (ngSubmit)="submit(table.id)" class="book__form">
         <p>Период</p>
         <p-iftalabel>
           <p-date-picker
             [readonlyInput]="true"
             [showIcon]="true"
-            formControlName="period"
-            selectionMode="range"
+            formControlName="bookDate"
             dateFormat="dd.mm.yy"
-            inputId="period"
+            inputId="bookDate"
           />
-          <label for="period">Период</label>
+          <label for="bookDate">Дата бронирования</label>
         </p-iftalabel>
 
         <p-iftalabel>

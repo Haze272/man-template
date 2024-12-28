@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from './entities/book.entity';
 import { Repository } from 'typeorm';
 import { BookStatus } from './entities/book-status.entity';
-import { Room } from '../rooms/entities/room.entity';
+import { Table } from '../tables/entities/table.entity';
 import { User } from '../users/entities/user.entity';
 import { CreateBookDto } from './dto/create-book-dto';
 import { UpdateBookDto } from './dto/update-book-dto';
@@ -15,8 +15,8 @@ export class BookingsService {
     private readonly bookRepository: Repository<Book>,
     @InjectRepository(BookStatus)
     private readonly bookStatusRepository: Repository<BookStatus>,
-    @InjectRepository(Room)
-    private readonly roomRepository: Repository<Room>,
+    @InjectRepository(Table)
+    private readonly tableRepository: Repository<Table>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {}
@@ -26,7 +26,7 @@ export class BookingsService {
       const book: CreateBookDto & {
         bookStatus?: BookStatus;
         user?: User;
-        room?: Room;
+        table?: Table;
         date?: Date;
       } = createBookDto;
       console.log(book);
@@ -46,18 +46,17 @@ export class BookingsService {
           throw new BadGatewayException(`Пользователь id=${userId} не найден`);
         });
 
-      book.room = await this.roomRepository
+      book.table = await this.tableRepository
         .findOneBy({
-          id: createBookDto.roomId,
+          id: createBookDto.tableId,
         })
         .catch(() => {
           throw new BadGatewayException(
-            `Номер id=${createBookDto.roomId} не найден`,
+            `Номер id=${createBookDto.tableId} не найден`,
           );
         });
 
-      book.dateStart = new Date(book.dateStart);
-      book.dateEnd = new Date(book.dateEnd);
+      book.bookDate = new Date(book.bookDate);
       book.date = new Date();
 
       return await this.bookRepository.save(book);
@@ -71,7 +70,7 @@ export class BookingsService {
       relations: {
         bookStatus: true,
         user: true,
-        room: true,
+        table: true,
       },
     });
   }
@@ -90,7 +89,7 @@ export class BookingsService {
       relations: {
         bookStatus: true,
         user: true,
-        room: true,
+        table: true,
       },
     });
   }
@@ -103,7 +102,7 @@ export class BookingsService {
           relations: {
             bookStatus: true,
             user: true,
-            room: true,
+            table: true,
           },
         })
         .catch(() => {
@@ -136,11 +135,8 @@ export class BookingsService {
           });
       }
 
-      if (updateBookDto.dateStart) {
-        book.dateStart = new Date(updateBookDto.dateStart);
-      }
-      if (updateBookDto.dateEnd) {
-        book.dateEnd = new Date(updateBookDto.dateEnd);
+      if (updateBookDto.bookDate) {
+        book.bookDate = new Date(updateBookDto.bookDate);
       }
 
       const bookToUpdate = { ...book, ...updateBookDto };

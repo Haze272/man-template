@@ -3,29 +3,26 @@
   <div class="header__side">
     <div class="logo">
       <a [routerLink]="['/']" class="logo__link">
-        <img src="assets/img/logo.png" alt="navi" class="logo__image">
+        TADAVIA
       </a>
     </div>
   </div>
 
   <div class="header__side">
     <nav class="navbar">
-      @if (user && authService.hasRole([3])) {
-        <a [routerLink]="['admin']" routerLinkActive="active">
-          Дашборд
-        </a>
+      @if (user && authService.hasRole([5])) {
         <a [routerLink]="['admin/book/list']" routerLinkActive="active">
           Бронирования
         </a>
-        <a [routerLink]="['admin/room/list']" routerLinkActive="active">
-          Номера
+        <a [routerLink]="['admin/table/list']" routerLinkActive="active">
+          Столики
         </a>
         <a [routerLink]="['admin/users']" routerLinkActive="active">
           Клиенты
         </a>
       } @else {
-        <a [routerLink]="['book/room/list']" routerLinkActive="active">
-          Доступные номера
+        <a [routerLink]="['book/table/list']" routerLinkActive="active">
+          Заказать столик
         </a>
         <a
           [routerLink]="['book/list']"
@@ -39,8 +36,9 @@
     </nav>
   </div>
   <div class="header__side">
+<!--    TODO: сделать меню из PrimeNG-->
     @if (user) {
-      <p-button [routerLink]="['profile']" icon="pi pi-user" aria-label="Save" />
+      <p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v"/>
     } @else {
       <p-button
         [routerLink]="['auth/log-in']"
@@ -51,3 +49,5 @@
     }
   </div>
 </header>
+
+<p-menu #menu [model]="accountMenuItems" [popup]="true"></p-menu>

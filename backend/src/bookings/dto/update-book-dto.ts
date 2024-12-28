@@ -9,5 +9,5 @@ export class UpdateBookDto extends PartialType(CreateBookDto) {
   userId: number;
 
   @Exclude()
-  roomId: number;
+  tableId: number;
 }

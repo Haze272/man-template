@@ -8,7 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as process from 'node:process';
 import { RouterModule } from '@nestjs/core';
-import { RoomsModule } from './rooms/rooms.module';
+import { TablesModule } from './tables/tables.module';
 import { BookingsModule } from './bookings/bookings.module';
 
 @Module({
@@ -40,7 +40,7 @@ import { BookingsModule } from './bookings/bookings.module';
         module: IamModule,
       },
     ]),
-    RoomsModule,
+    TablesModule,
     BookingsModule,
   ],
   controllers: [AppController],

@@ -5,7 +5,8 @@
 
 body {
   font-family: "Inter", sans-serif;
-  background-color: var(--ground-background);
+  background: url(/assets/img/texture-bg-footer.svg), var(--ground-background);
+  background-repeat: repeat;
 }
 
 h1 {
@@ -79,42 +80,6 @@ section[class] {
   section, header, footer, .container {
     padding: 0 calc(13vw - 114px);
   }
-}
-
-@keyframes text-aura {
-  0% {
-    text-shadow:
-      0 -15px 15px rgba(chartreuse, 0.8),
-      0 -4px 15px rgba(magenta, 0.8),
-      5px -5px 15px rgba(cyan, 0.8),
-      -3px -3px 15px rgba(black, 0.8);
-  }
-  33.333% {
-    text-shadow:
-      0 4px 12px rgba(cyan, 0.8),
-      5px -10px 25px rgba(magenta, 1),
-      -4px 0 35px rgba(chartreuse, 0.8),
-      3px 3px 15px rgba(black, 0.5);
-  }
-  66.666% {
-    text-shadow:
-      0 0 50px rgba(chartreuse, 1),
-      5px -12px 8px rgba(cyan, 0.8),
-      15px -5px 15px rgba(magenta, 0.6),
-      0 -10px 23px rgba(black, 0.8);
-  }
-  100% {
-    text-shadow:
-      0 -15px 15px rgba(chartreuse, 0.8),
-      0 -4px 15px rgba(magenta, 0.8),
-      -3px -3px 15px rgba(black, 0.8),
-      5px -5px 15px rgba(cyan, 0.8);
-  }
-}
-
-
-.aurora {
-  animation: text-aura 15s ease-out infinite;
 }
 
 

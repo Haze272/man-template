@@ -1,0 +1,61 @@
+.table-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 350px));
+  justify-content: space-between;
+  gap: var(--spacing-06);
+
+  .table {
+    display: flex;
+    flex-direction: column;
+
+    gap: var(--spacing-04);
+
+    border: 1px solid var(--primary-contrast-color);
+    border-radius: 8px;
+    overflow: hidden;
+
+    cursor: pointer;
+
+    &__image {
+      height: 200px;
+      object-fit: cover;
+    }
+
+    &__container {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--spacing-03);
+
+      padding: var(--spacing-04);
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-03);
+    }
+
+    &__capacity {
+      color: var(--text-secondary-color);
+    }
+
+    .room__footer {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-04);
+    }
+
+    &__price {
+      &-price {
+        font-size: 1.5rem;
+      }
+
+      &-per {
+        font-size: 0.75rem;
+        color: var(--text-secondary-color);
+      }
+    }
+  }
+}

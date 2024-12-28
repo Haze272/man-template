@@ -8,8 +8,8 @@ import {IftaLabel} from 'primeng/iftalabel';
 import {InputText} from 'primeng/inputtext';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {Observable, of, Subject, switchMap, takeUntil} from 'rxjs';
-import {RoomsService} from '../../services/rooms.service';
-import {Room} from '../../models/room.model';
+import {TablesService} from '../../services/tables.service';
+import {Table} from '../../models/table.model';
 import {AsyncPipe} from '@angular/common';
 import {Button} from 'primeng/button';
 import {MessageService} from 'primeng/api';
@@ -36,29 +36,29 @@ export class BookPageComponent implements OnInit, OnDestroy {
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly messageService = inject(MessageService);
   private readonly bookingService = inject(BookingService);
-  private readonly roomsService = inject(RoomsService);
+  private readonly tablesService = inject(TablesService);
 
   private destroy$ = new Subject<void>()
 
-  room$ = new Observable<Room>();
+  table$ = new Observable<Table>();
 
   bookForm = new FormGroup({
-    period: new FormControl(''),
+    bookDate: new FormControl(''),
     persons: new FormControl<number>(1),
     comment: new FormControl(''),
   });
 
   ngOnInit() {
-    this.room$ = this.activatedRoute.paramMap
+    this.table$ = this.activatedRoute.paramMap
       .pipe(switchMap(params => {
-        return this.roomsService.getRoomById(Number(params.get('roomId')));
+        return this.tablesService.getTableById(Number(params.get('tableId')));
       }));
   }
 
-  submit(roomId: number) {
+  submit(tableId: number) {
     this.bookingService.book({
       ...this.bookForm.value,
-      roomId: roomId
+      tableId: tableId
     })
       .pipe(takeUntil(this.destroy$))
       .subscribe({
@@ -74,7 +74,7 @@ export class BookPageComponent implements OnInit, OnDestroy {
           this.messageService.add({
             severity: 'error',
             summary: 'Ошибка',
-            detail: 'Произошла ошибка! Обратитесь в поддержку',
+            detail: 'Бронирование не удалось',
           });
         }
       });

@@ -95,7 +95,7 @@ export class AdminUserListPageComponent implements OnInit, OnDestroy {
           this.messageService.add({
             severity: 'error',
             summary: 'Ошибка',
-            detail: 'Произошла ошибка! Обратитесь в поддержку',
+            detail: 'Пользователь не изменен',
             life: 3000
           });
         }
@@ -119,7 +119,7 @@ export class AdminUserListPageComponent implements OnInit, OnDestroy {
           this.messageService.add({
             severity: 'error',
             summary: 'Ошибка',
-            detail: 'Произошла ошибка! Обратитесь в поддержку',
+            detail: 'Пользователь не изменен',
             life: 3000
           });
         }
@@ -182,7 +182,7 @@ export class AdminUserListPageComponent implements OnInit, OnDestroy {
           this.messageService.add({
             severity: 'error',
             summary: 'Ошибка',
-            detail: 'Произошла ошибка! Обратитесь в поддержку',
+            detail: 'Пользователь не изменен',
             life: 3000
           });
 

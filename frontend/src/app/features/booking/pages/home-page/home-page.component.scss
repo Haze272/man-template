@@ -1,27 +1,19 @@
 .page-home {
-  background-image: url("/assets/img/background.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-blend-mode: darken, luminosity;
-  background-size: cover;
 
 
   padding-top: 220px;
 
   .info {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     gap: var(--spacing-06);
 
     background-color: var(--topbar-sticky-background);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
 
     border-radius: 8px;
     padding: 20px;
 
     width: 100%;
-    max-width: 750px;
 
     h1 {
       font-size: 2rem;
@@ -29,6 +21,22 @@
 
     p {
       font-size: 1.25rem;
+    }
+
+    &__side {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-06);
+      flex: 0 1 auto;
+
+      &-img {
+        flex: 1 0 40%;
+
+        img {
+          width:100%;
+          object-fit:cover;
+        }
+      }
     }
   }
 }

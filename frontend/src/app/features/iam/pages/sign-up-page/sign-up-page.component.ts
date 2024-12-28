@@ -65,7 +65,7 @@ export class SignUpPageComponent implements OnInit, OnDestroy {
           this.messageService.add({
             severity: 'error',
             summary: 'Ошибка',
-            detail: 'Произошла ошибка! Обратитесь в поддержку',
+            detail: 'Аккаунт не зарегестрирован',
             life: 3000
           });
         }

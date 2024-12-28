@@ -4,9 +4,8 @@ import {ConfigService} from '../../config/config.service';
 import {User} from '../../iam/models/user.model';
 import {Role} from '../../iam/models/role.model';
 import {iif, zip} from 'rxjs';
-import {Room} from '../../booking/models/room.model';
-import {Amenity} from '../../booking/models/amenity.model';
-import {RoomType} from '../../booking/models/room-type.model';
+import {Table} from '../../booking/models/table.model';
+import {TableType} from '../../booking/models/table-type.model';
 import {Booking} from '../../booking/models/booking.model';
 import {BookingStatus} from '../../booking/models/booking-status.model';
 
@@ -61,40 +60,32 @@ export class AdminService {
     );
   }
 
-  getAllRooms() {
-    return this.http.get<Room[]>(
-      this.configService.config.admin.url + `/rooms`,
+  getAllTables() {
+    return this.http.get<Table[]>(
+      this.configService.config.admin.url + `/`,
       { withCredentials: true }
     );
   }
-  getRoomById(id: number) {
-    return this.http.get<Room>(
+  getTableById(id: number) {
+    return this.http.get<Table>(
       this.configService.config.admin.url + `/rooms/${id}`,
       { withCredentials: true }
     );
   }
-  updateRoom(
+  updateTable(
     id: number,
-    roomUpdateData: Partial<Room> & {
-      roomTypeId?: number,
-      amenityIds?: number[]
+    tableUpdateData: Partial<Table> & {
+      tableTypeId?: number
     }) {
-    return this.http.patch<Room>(
+    return this.http.patch<Table>(
       this.configService.config.admin.url + `/rooms/${id}`,
-      roomUpdateData,
+      tableUpdateData,
       { withCredentials: true }
     );
   }
 
-  getAllAmenities() {
-    return this.http.get<Amenity[]>(
-      this.configService.config.admin.url + `/rooms/amenities`,
-      { withCredentials: true }
-    );
-  }
-
-  getAllRoomTypes() {
-    return this.http.get<RoomType[]>(
+  getAllTableTypes() {
+    return this.http.get<TableType[]>(
       this.configService.config.admin.url + `/rooms/types`,
       { withCredentials: true }
     );
@@ -116,8 +107,7 @@ export class AdminService {
     id: number,
     bookingUpdateData: Partial<Booking> & {
       statusId?: number,
-      dateStartInt?: Date | string,
-      dateEndInt?: Date | string,
+      dateBookInt?: Date | string,
     }) {
     return this.http.patch<Booking>(
       this.configService.config.admin.url + `/bookings/${id}`,
