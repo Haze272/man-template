@@ -4,7 +4,7 @@
   <div class="booking-list">
     @let allMyBookings = allMyBookings$ | async;
     @for (booking of allMyBookings; track booking.id) {
-      <div class="booking">
+      <div class="booking plate">
         <h3>Бронирование #{{ booking.id }}</h3>
         <p>Дата прихода: {{ booking.bookDate | date : 'dd.MM.yyyy' }}</p>
         <p>Дата бронирования: {{ booking.date | date : 'dd.MM.yyyy HH:mm:ss'  }}</p>

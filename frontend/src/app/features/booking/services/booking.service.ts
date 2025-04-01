@@ -2,7 +2,8 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ConfigService} from '../../config/config.service';
 import {Booking} from '../models/booking.model';
-import {of} from 'rxjs';
+import {of, switchMap} from 'rxjs';
+import {AuthService} from '../../iam/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import {of} from 'rxjs';
 export class BookingService {
   private readonly http = inject(HttpClient);
   private readonly configService = inject(ConfigService);
+  private readonly authService = inject(AuthService);
 
   getAllUserBookings() {
     return this.http.get<Booking[]>(
@@ -19,13 +21,20 @@ export class BookingService {
   }
 
   cancelBooking(bookingId: number) {
-    return this.http.patch(
-      this.configService.config.bookingUrl + `/bookings/${bookingId}`,
-      {
-        statusId: 5
-      },
-      { withCredentials: true }
-    )
+    return this.authService.activeUser$
+      .pipe(
+        switchMap((user) => {
+          const isAdmin = user ? user.roles.map(role => role.id).includes(15) : false;
+
+          return this.http.patch(
+            this.configService.config.bookingUrl + `/bookings/${bookingId}`,
+            {
+              statusId: isAdmin ? 5 : 4,
+            },
+            { withCredentials: true }
+          )
+        })
+      );
   }
 
   book(data: any) {

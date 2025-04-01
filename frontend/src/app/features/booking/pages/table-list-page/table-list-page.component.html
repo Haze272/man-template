@@ -4,7 +4,7 @@
   <div class="table-list">
     @let allTables = allTables$ | async;
     @for (table of allTables; track table.id) {
-      <div class="table">
+      <div class="table plate">
         <img [src]="table.imageUrl" [alt]="table.name" class="table__image">
         <div class="table__container">
           <div class="table__content">
@@ -17,7 +17,7 @@
           <div class="table__footer">
             <div class="table__price">
               <span class="table__price-price">{{ table.bookPrice }} ₽</span>
-              <span class="table__price-per">Cтоимость брони</span>
+              <span class="table__price-per">Стоимость бронирования (депозит)</span>
             </div>
 
             <p-button (click)="bookTable($event, table.id)" label="Забронировать столик" />
