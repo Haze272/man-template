@@ -5,14 +5,16 @@ import {User} from '../models/user.model';
 import {BehaviorSubject, of, switchMap, tap, throwError} from 'rxjs';
 import {ConfigService} from '../../config/config.service';
 import {HttpClient} from '@angular/common/http';
+import {SessionStorageService} from '../../storage/session-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  localStorageService = inject(LocalStorageService);
   http = inject(HttpClient);
   configService = inject(ConfigService);
+  localStorageService = inject(LocalStorageService);
+  sessionStorageService = inject(SessionStorageService);
 
   activeUser$ = new BehaviorSubject<User | null>(null)
 
@@ -28,10 +30,11 @@ export class AuthService {
       }
     ).pipe(
       switchMap((response) => {
+        console.log('response', response)
         if (response) {
           this.activeUser$.next(response.userData)
           this.localStorageService.saveData('user', JSON.stringify(response.userData));
-          sessionStorage.setItem('refreshToken', response.refreshToken);
+          this.sessionStorageService.saveData('refreshToken', response.refreshToken);
 
           return of({});
         } else {
@@ -79,10 +82,13 @@ export class AuthService {
         if (response) {
           this.activeUser$.next(response.userData);
           this.localStorageService.saveData('user', JSON.stringify(response.userData));
-          sessionStorage.setItem('refreshToken', response.refreshToken);
+          this.sessionStorageService.saveData('refreshToken', response.refreshToken);
 
           return of(response.userData);
         } else {
+          this.localStorageService.removeData('user');
+          this.sessionStorageService.removeData('refreshToken');
+
           return throwError(() => {
             return new Error('Пользователь не авторизирован');
           })
@@ -93,6 +99,7 @@ export class AuthService {
 
   logout() {
     this.localStorageService.removeData('user');
+    this.sessionStorageService.removeData('refreshToken');
 
     return this.http.post(
       this.configService.config.auth.url + '/authentication/logout',
@@ -102,6 +109,7 @@ export class AuthService {
       }
     ).pipe(
       tap(() => {
+        this.localStorageService.removeData('user');
         window.location.reload();
       })
     );

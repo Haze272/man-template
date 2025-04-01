@@ -35,7 +35,7 @@ export class HeaderComponent {
       label: 'Выйти из аккаунта',
       icon: 'pi pi-sign-out',
       command: () => {
-        this.authService.logout();
+        this.authService.logout().subscribe(); // TODO перенести подписку
       }
     }
   ];
