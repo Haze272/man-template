@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit} from '@an
 import {AuthService} from '../../services/auth.service';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {Subject, switchMap, takeUntil} from 'rxjs';
+import {catchError, concat, of, Subject, switchMap, takeUntil} from 'rxjs';
 import {Button} from 'primeng/button';
 import {IftaLabel} from 'primeng/iftalabel';
 import {InputText} from 'primeng/inputtext';
@@ -68,14 +68,24 @@ export class SignInPageComponent implements OnInit, OnDestroy {
         switchMap(({login, password}) => {
           return this.authService.signIn(login, password)
         }),
+        catchError((err, caught) => {
+          console.error("Auth error", err);
+
+          return caught;
+        }),
       )
       .subscribe({
-        next: () => {
-          this.router.navigateByUrl(this.redirectToAfterLogin);
-          console.log("Auth success")
+        next: (result) => {
+          if (result) {
+            this.router.navigateByUrl(this.redirectToAfterLogin);
+            console.log("Auth success")
+          }
         },
         error: (err) => {
-          console.error("Auth error")
+          console.error("Auth error1111")
+        },
+        complete: () => {
+          console.log('complete');
         }
       });
   }

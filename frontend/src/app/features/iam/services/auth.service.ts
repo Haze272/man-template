@@ -36,7 +36,7 @@ export class AuthService {
           this.localStorageService.saveData('user', JSON.stringify(response.userData));
           this.sessionStorageService.saveData('refreshToken', response.refreshToken);
 
-          return of({});
+          return of({ });
         } else {
           return throwError(() => {
             return new Error('Пароль неверный или пользователь не существует!')

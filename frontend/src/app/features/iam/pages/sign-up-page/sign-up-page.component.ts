@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {Subject, switchMap, takeUntil} from 'rxjs';
+import {catchError, Subject, switchMap, takeUntil} from 'rxjs';
 import {Button} from 'primeng/button';
 import {IftaLabel} from 'primeng/iftalabel';
 import {InputText} from 'primeng/inputtext';
@@ -50,6 +50,17 @@ export class SignUpPageComponent implements OnInit, OnDestroy {
         switchMap(() => {
           return this.authService.signUp(this.signUpForm.value)
         }),
+        catchError((err, caught) => {
+          console.error("Sign up error", err);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Ошибка',
+            detail: 'Аккаунт не зарегестрирован',
+            life: 3000
+          });
+
+          return caught;
+        }),
       )
       .subscribe({
         next: (v => {
@@ -62,12 +73,7 @@ export class SignUpPageComponent implements OnInit, OnDestroy {
           this.router.navigateByUrl('/auth/log-in');
         }),
         error: err => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Ошибка',
-            detail: 'Аккаунт не зарегестрирован',
-            life: 3000
-          });
+          console.error(err);
         }
       });
   }
