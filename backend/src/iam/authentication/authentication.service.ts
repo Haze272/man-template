@@ -16,12 +16,15 @@ import { SignInDto } from './dto/sign-in.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { ActiveUserData } from '../models/active-user-data.model';
 import { HashingService } from '../hashing/hashing.service';
+import { UserStatus } from "../../users/entities/user-status.entity";
 
 @Injectable()
 export class AuthenticationService {
   constructor(
     @InjectRepository(User) private readonly usersRepository: Repository<User>,
     @InjectRepository(Role) private readonly rolesRepository: Repository<Role>,
+    @InjectRepository(UserStatus)
+    private readonly userStatusesRepository: Repository<UserStatus>,
     private readonly hashingService: HashingService,
     private readonly jwtService: JwtService,
     @Inject(jwtConfig.KEY)
@@ -39,6 +42,7 @@ export class AuthenticationService {
       user.surname = signUpDto.surname;
       user.patronymic = signUpDto.patronymic;
       user.phone = signUpDto.phone;
+      user.status = await this.userStatusesRepository.findOneBy({ id: 1 });
 
       await this.usersRepository.save(user);
     } catch (err) {
