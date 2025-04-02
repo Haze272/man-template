@@ -66,14 +66,14 @@ export class AdminTableListPageComponent implements OnInit, OnDestroy {
           return this.adminService.getAllTables();
         })
       )
-      .subscribe(rooms => {
-        this.tables$.next(rooms);
+      .subscribe(tables => {
+        this.tables$.next(tables);
       });
 
     this.adminService.getAllTableTypes()
       .pipe(takeUntil(this.destroy$))
-      .subscribe((roomTypes) => {
-        this.tableTypes = roomTypes;
+      .subscribe((tableTypes) => {
+        this.tableTypes = tableTypes;
       });
 
     this.loadList$.next();
@@ -83,22 +83,22 @@ export class AdminTableListPageComponent implements OnInit, OnDestroy {
     this.loadList$.next();
   }
 
-  openEditDialog(roomId: number) {
+  openEditDialog(tableId: number) {
     this.editDialog = true;
-    this.adminService.getTableById(roomId)
+    this.adminService.getTableById(tableId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: room => {
+        next: table => {
           this.editForm.setValue({
-            id: room.id,
-            name: room.name,
-            number: room.number,
-            capacity: room.capacity,
-            description: room.description,
-            bookPrice: room.bookPrice,
-            imageUrl: room.imageUrl,
-            extra: room.extra ?? '',
-            tableTypeId: room.tableType.id,
+            id: table.id,
+            name: table.name,
+            number: table.number,
+            capacity: table.capacity,
+            description: table.description,
+            bookPrice: table.bookPrice,
+            imageUrl: table.imageUrl,
+            extra: table.extra ?? '',
+            tableTypeId: table.tableType.id,
           });
         }
       });
@@ -151,7 +151,7 @@ export class AdminTableListPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  deleteRoom(tableId: number) {
+  deleteTable(tableId: number) {
 
   }
 

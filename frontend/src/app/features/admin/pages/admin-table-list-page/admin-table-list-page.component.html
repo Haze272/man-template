@@ -34,7 +34,7 @@
           <td>{{ table.tableType ? table.tableType.name : 'N/A' }}</td>
           <td>
             <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" (click)="openEditDialog(table.id)" title="Редактировать" />
-            <p-button icon="pi pi-times" [rounded]="true" [text]="true" (click)="deleteRoom(table.id)" title="Удалить" />
+            <p-button icon="pi pi-times" [rounded]="true" [text]="true" (click)="deleteTable(table.id)" title="Удалить" />
           </td>
         </tr>
       </ng-template>
@@ -64,7 +64,7 @@
       </p-iftalabel>
 
       <p-iftalabel>
-        <p-input-number inputId="bedCapacity" formControlName="bedCapacity"/>
+        <p-input-number inputId="bedCapacity" formControlName="capacity"/>
         <label for="bedCapacity">Рассчитано на персон</label>
       </p-iftalabel>
 

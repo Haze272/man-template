@@ -62,13 +62,13 @@ export class AdminService {
 
   getAllTables() {
     return this.http.get<Table[]>(
-      this.configService.config.admin.url + `/`,
+      this.configService.config.admin.url + `/tables`,
       { withCredentials: true }
     );
   }
   getTableById(id: number) {
     return this.http.get<Table>(
-      this.configService.config.admin.url + `/rooms/${id}`,
+      this.configService.config.admin.url + `/tables/${id}`,
       { withCredentials: true }
     );
   }
@@ -78,7 +78,7 @@ export class AdminService {
       tableTypeId?: number
     }) {
     return this.http.patch<Table>(
-      this.configService.config.admin.url + `/rooms/${id}`,
+      this.configService.config.admin.url + `/tables/${id}`,
       tableUpdateData,
       { withCredentials: true }
     );
@@ -86,7 +86,7 @@ export class AdminService {
 
   getAllTableTypes() {
     return this.http.get<TableType[]>(
-      this.configService.config.admin.url + `/rooms/types`,
+      this.configService.config.admin.url + `/tables/types`,
       { withCredentials: true }
     );
   }

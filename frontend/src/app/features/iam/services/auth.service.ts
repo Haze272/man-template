@@ -97,6 +97,26 @@ export class AuthService {
     );
   }
 
+  refreshTokens() {
+    console.log('refreshToken');
+    const refreshToken = this.sessionStorageService.getData('refreshToken');
+
+    return this.http.post(
+      this.configService.config.auth.url + '/authentication/refresh-tokens',
+      {
+        refreshToken: refreshToken + ''
+      },
+      {
+        withCredentials: true
+      }
+    ).pipe(
+      tap((response: any) => {
+        console.log('refreshToken', response)
+        this.sessionStorageService.saveData('refreshToken', response.refreshToken);
+      })
+    )
+  }
+
   logout() {
     this.localStorageService.removeData('user');
     this.sessionStorageService.removeData('refreshToken');

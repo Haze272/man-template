@@ -4,18 +4,21 @@ import {provideRouter} from '@angular/router';
 import {routes} from './app.routes';
 import {AuthService} from './features/iam/services/auth.service';
 import {ConfigService} from './features/config/config.service';
-import {provideHttpClient} from '@angular/common/http';
+import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import MyPreset from './theme';
 import {MessageService} from 'primeng/api';
+import {authInterceptor} from './features/iam/interceptors/auth.interceptor';
 
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([authInterceptor]),
+    ),
     provideAppInitializer(async () => {
       const authService = inject(AuthService);
       const configService = inject(ConfigService)
