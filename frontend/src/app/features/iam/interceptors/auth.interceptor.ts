@@ -24,7 +24,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
       // process error...
       console.log('error interceptor !!', e);
-      if (e.status === 401) {
+      if (e.error.message === 'Token has not been verified!' && e.status === 401) {
         return authService.refreshTokens().pipe(
           switchMap(v => {
             return next(req)

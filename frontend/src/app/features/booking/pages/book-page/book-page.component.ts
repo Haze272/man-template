@@ -56,6 +56,7 @@ export class BookPageComponent implements OnInit, OnDestroy {
   }
 
   submit(tableId: number) {
+    console.log(tableId)
     this.bookingService.book({
       ...this.bookForm.value,
       tableId: tableId

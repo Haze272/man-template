@@ -38,11 +38,11 @@ export class BookingService {
   }
 
   book(data: any) {
-    const formattedData: Partial<Booking> = {
+    const formattedData: Partial<any> = {
       bookDate: data.bookDate,
       persons: data.persons,
       comment: data.comment,
-      table: data.roomId
+      tableId: data.tableId
     }
 
     return this.http.post(

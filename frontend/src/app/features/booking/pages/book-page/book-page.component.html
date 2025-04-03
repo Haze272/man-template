@@ -1,11 +1,11 @@
 <section class="page">
-  <h1>Бронирование номера</h1>
+  <h1>Бронирование стола</h1>
 
   <div class="book">
     @let table = table$ | async;
 
     @if (table) {
-      <p class="book__room"><a [routerLink]="['/book/room/', table.id]">Номер: {{ table.id }}</a></p>
+      <p class="book__room"><a [routerLink]="['/book/room/', table.id]">Стол: {{ table.id }}</a></p>
       <p-iftalabel>
         <input pInputText [value]="table?.name" disabled id="table-number" autocomplete="off"/>
 
