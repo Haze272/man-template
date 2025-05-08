@@ -8,8 +8,6 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as process from 'node:process';
 import { RouterModule } from '@nestjs/core';
-import { TablesModule } from './tables/tables.module';
-import { BookingsModule } from './bookings/bookings.module';
 
 @Module({
   imports: [
@@ -40,8 +38,6 @@ import { BookingsModule } from './bookings/bookings.module';
         module: IamModule,
       },
     ]),
-    TablesModule,
-    BookingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
