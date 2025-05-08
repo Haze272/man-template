@@ -1,40 +1,17 @@
-Картинки:
-https://i.ibb.co/LYL9wxz/table1.jpg
-https://i.ibb.co/Vpmz2tP/table2.jpg
-https://i.ibb.co/G2S8dhM/table3.jpg
-https://i.ibb.co/qWwpQMD/table4.jpg
-https://i.ibb.co/wK6HfkZ/table5.jpg
-https://i.ibb.co/DKR5Bc4/table6.jpg
-https://i.ibb.co/F7rHkMs/table7.jpg
-https://i.ibb.co/rb8s6dn/table8.jpg
-
-
-Сущности:
 ```sql
-insert into taco.book_status (name) values ('Забронировано'), ('Подтверждено'), ('В ожидании'), ('Отменено клиентом'), ('Отменено рестораном'), ('Завершено');
 
-insert into taco.user_status (name) values ('Активный'), ('Заблокирован'), ('Ожидает подтверждения'), ('Удален');
+insert into mydb.user_status (name) values ('Активный'), ('Заблокирован'), ('Ожидает подтверждения'), ('Удален');
 
-insert into taco.table_type (name) values ('Маленький столик у окна'), ('Маленький столик в центре зала'), ('Средний столик у стены'), ('Средний столик в центре зала'), ('Большой столик у окна'), ('Большой столик в отдельной зоне'), ('VIP-зона с отдельным обслуживанием'), ('Барная стойка');
 
-insert into taco.role (name, level, description) values 
+insert into mydb.role (name, level, description) values 
 ('Пользователь', 1, 'Обычный пользователь, который может бронировать столики и оставлять отзывы.'),
 ('Постоянный клиент', 2, 'Клиент, который часто посещает ресторан и имеет доступ к бонусам.'),
 ('Премиальный клиент', 3, 'Особый статус клиента с правом на приоритетные бронирования.'),
 ('VIP клиент', 5, 'Клиент с максимальными привилегиями, включая эксклюзивные зоны.'),
 ('Администратор', 15, 'Полный доступ к управлению системой, включая бронирования, столики и пользователей.');
 
-insert into taco.table (name, number, capacity, description, bookPrice, imageUrl, extra, tableTypeId) values 
-('Маленький стол у окна', 1, 2, 'Уютный столик для двоих у окна с видом на улицу.', 500, 'https://i.ibb.co/LYL9wxz/table1.jpg', '', 1),
-('Маленький стол в углу', 2, 2, 'Уединенный столик для двоих в углу ресторана.', 400, 'https://i.ibb.co/Vpmz2tP/table2.jpg', '', 1),
-('Средний стол в центре', 3, 4, 'Просторный стол для небольшой компании в центре зала.', 800, 'https://i.ibb.co/G2S8dhM/table3.jpg', '', 4),
-('Средний стол у стены', 4, 4, 'Удобный стол для четырех человек рядом со стеной.', 700, 'https://i.ibb.co/qWwpQMD/table4.jpg', '', 3),
-('Большой стол на 6 человек', 5, 6, 'Идеальный выбор для большой компании.', 1200, 'https://i.ibb.co/wK6HfkZ/table5.jpg', '', 6),
-('Большой стол с панорамным видом', 6, 6, 'Стол для шести человек с отличным видом из окна.', 1500, 'https://i.ibb.co/DKR5Bc4/table6.jpg', '', 5),
-('VIP-зона: круглый стол', 7, 8, 'Просторный стол в отдельной зоне ресторана для эксклюзивных клиентов.', 2500, 'https://i.ibb.co/F7rHkMs/table7.jpg', '', 7),
-('VIP-зона: стол у камина', 8, 6, 'Стол в уютной зоне ресторана рядом с камином.', 3000, 'https://i.ibb.co/rb8s6dn/table8.jpg', '', 7);
 
-insert into taco.user (username, email, password, name, surname, patronymic, phone, statusId) values
+insert into mydb.user (username, email, password, name, surname, patronymic, phone, statusId) values
 ('juanito01', 'juanito01@mail.com', 'password123', 'Хуан', 'Гонсалес', 'Эрнандес', '+79010010001', 1),
 ('lupita02', 'lupita02@mail.com', 'password123', 'Лупита', 'Мендоза', 'Суарес', '+79010010002', 1),
 ('carlos03', 'carlos03@mail.com', 'password123', 'Карлос', 'Рамирес', 'Вега', '+79010010003', 1),
@@ -66,7 +43,8 @@ insert into taco.user (username, email, password, name, surname, patronymic, pho
 ('cesar29', 'cesar29@mail.com', 'password123', 'Сезар', 'Масаригос', 'Руис', '+79010010029', 1),
 ('miranda30', 'miranda30@mail.com', 'password123', 'Миранда', 'Баскес', 'Ортис', '+79010010030', 1);
 
-insert into taco.user_roles_role (userId, roleId) values
+
+insert into mydb.user_roles_role (userId, roleId) values
 -- Пользователи с id 2-11 получают роль "Пользователь"
 (2, 1),
 (3, 1),
@@ -108,13 +86,3 @@ insert into taco.user_roles_role (userId, roleId) values
 (31, 1), (31, 5);
 
 ```
-
-
-
-admin:
-studiorain271@gmail.com
-Admin2123456
-
-user:
-studiorain27@gmail.com
-Haze272123456
