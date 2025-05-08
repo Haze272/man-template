@@ -1,32 +1,41 @@
 import { Routes } from '@angular/router';
-import {TestPageComponent} from './features/_test/pages/test-page/test-page.component';
 import {SignInPageComponent} from './features/iam/pages/sign-in-page/sign-in-page.component';
 import {SignUpPageComponent} from './features/iam/pages/sign-up-page/sign-up-page.component';
-import {TestHiddenPageComponent} from './features/_test/pages/test-hidden-page/test-hidden-page.component';
-import {
-  TestAuthenticatedPageComponent
-} from './features/_test/pages/test-authenticated-page/test-authenticated-page.component';
 import {authGuard} from './features/iam/guards/auth.guard';
-import {noLoginGuard} from './features/iam/guards/no-login.guard';
 import {roleGuard} from './features/iam/guards/role.guard';
 import {ProfilePageComponent} from './features/profile/profile-page/profile-page.component';
+import {HomePageComponent} from './features/home/home-page/home-page.component';
+import {SandboxPageComponent} from './features/_dev/pages/sandbox-page/sandbox-page.component';
+import {AdminUserListPageComponent} from './features/admin/pages/admin-user-list-page/admin-user-list-page.component';
 
 export const routes: Routes = [
-  { path: '', component: TestPageComponent, pathMatch: 'full' },
+  { path: '', component: HomePageComponent, pathMatch: 'full' },
   { path: 'profile', component: ProfilePageComponent, canActivate: [authGuard] },
   {
     path: 'admin',
-    component: TestHiddenPageComponent,
     canActivate: [authGuard, roleGuard],
-    data: { roles: [3] }
+    data: { roles: [5] },
+    children: [
+      { path: '', redirectTo: 'users', pathMatch: 'full' },
+      {
+        path: 'users',
+        component: AdminUserListPageComponent
+      }
+    ]
   },
 
   {
     path: 'auth',
-    canActivate: [noLoginGuard],
     children: [
       { path: 'log-in', component: SignInPageComponent },
       { path: 'sign-up', component: SignUpPageComponent },
+    ]
+  },
+
+  {
+    path: 'dev',
+    children: [
+      { path: 'sandbox', component: SandboxPageComponent }
     ]
   }
 ];

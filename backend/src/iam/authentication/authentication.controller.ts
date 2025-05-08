@@ -22,8 +22,10 @@ export class AuthenticationController {
   constructor(private readonly authService: AuthenticationService) {}
 
   @Post('sign-up')
-  signUp(@Body() signUpDto: SignUpDto) {
-    return this.authService.signUp(signUpDto);
+  async signUp(@Body() signUpDto: SignUpDto) {
+    await this.authService.signUp(signUpDto);
+
+    return {};
   }
 
   // Cookies realization
@@ -47,6 +49,11 @@ export class AuthenticationController {
       username: user.username,
       email: user.email,
       roles: user.roles,
+      name: user.name,
+      surname: user.surname,
+      patronymic: user.patronymic,
+      phone: user.phone,
+      status: user.status,
     };
 
     return { refreshToken, userData };
@@ -68,6 +75,11 @@ export class AuthenticationController {
       username: user.username,
       email: user.email,
       roles: user.roles,
+      name: user.name,
+      surname: user.surname,
+      patronymic: user.patronymic,
+      phone: user.phone,
+      status: user.status,
     };
 
     return { refreshToken, userData };
@@ -75,8 +87,20 @@ export class AuthenticationController {
 
   @HttpCode(HttpStatus.OK)
   @Post('refresh-tokens')
-  refreshTokens(@Body() refreshTokenDto: RefreshTokenDto) {
-    return this.authService.refreshTokens(refreshTokenDto);
+  async refreshTokens(
+    @Body() refreshTokenDto: RefreshTokenDto,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const { accessToken, refreshToken } =
+      await this.authService.refreshTokens(refreshTokenDto);
+
+    response.cookie('access_token', accessToken, {
+      secure: true,
+      httpOnly: true,
+      sameSite: true,
+    });
+
+    return { refreshToken };
   }
 
   @HttpCode(HttpStatus.OK)

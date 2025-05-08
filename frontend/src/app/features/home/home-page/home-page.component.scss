@@ -1,0 +1,46 @@
+.page-home {
+  padding-top: 220px;
+
+  .info {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--spacing-06);
+
+    background-color: var(--topbar-sticky-background);
+
+    border-radius: 8px;
+    padding: 20px;
+
+    width: 100%;
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1.25rem;
+    }
+
+    &__side {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-07);
+      flex: 0 1 auto;
+
+      &-img {
+        flex: 1 0 40%;
+
+        img {
+          width:100%;
+          object-fit:cover;
+        }
+      }
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-06);
+    }
+  }
+}

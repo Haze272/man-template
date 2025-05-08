@@ -30,10 +30,6 @@ import { RouterModule } from '@nestjs/core';
     UsersModule,
     RouterModule.register([
       {
-        path: 'users',
-        module: UsersModule,
-      },
-      {
         path: 'roles',
         module: RolesModule,
       },

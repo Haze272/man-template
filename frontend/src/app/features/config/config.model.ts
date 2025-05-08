@@ -5,4 +5,10 @@ export type Config = {
     autologin: boolean;
     url: string;
   }
+
+  bookingUrl: string;
+
+  admin: {
+    url: string;
+  }
 }

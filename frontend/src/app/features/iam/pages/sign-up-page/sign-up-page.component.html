@@ -1,9 +1,54 @@
-<form [formGroup]="signUpForm" (ngSubmit)="signUp()">
-  <input formControlName="username" type="text" placeholder="Имя пользователя">
+<section class="page page-auth">
+  <div class="auth-form">
+    <h1>Регистрация</h1>
 
-  <input formControlName="email" type="email" placeholder="Электронная почта">
+    <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+      <p-iftalabel>
+        <input pInputText formControlName="surname" id="surname" autocomplete="off" />
 
-  <input formControlName="password" type="password" placeholder="Пароль">
+        <label for="surname">Фамилия</label>
+      </p-iftalabel>
 
-  <button>Войти</button>
-</form>
+      <p-iftalabel>
+        <input pInputText formControlName="name" id="name" autocomplete="off" />
+
+        <label for="name">Имя</label>
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <input pInputText formControlName="patronymic" id="patronymic" autocomplete="off" />
+
+        <label for="patronymic">Отчество</label>
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <input pInputText formControlName="phone" id="phone" autocomplete="off" />
+
+        <label for="phone">Номер телефона</label>
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <input pInputText formControlName="username" id="username" autocomplete="off" />
+
+        <label for="username">Логин</label>
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <input pInputText formControlName="email" id="email" autocomplete="off" />
+
+        <label for="email">Электронная почта</label>
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <p-password inputId="password" formControlName="password" />
+        <label for="password">Пароль</label>
+      </p-iftalabel>
+
+      <p class="link">
+        Уже есть аккаунт? <a [routerLink]="['/auth/log-in']">Войти</a>
+      </p>
+
+      <p-button label="Зарегистрироваться" type="submit" />
+    </form>
+  </div>
+</section>

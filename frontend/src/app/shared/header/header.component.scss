@@ -1,0 +1,44 @@
+.header {
+  background-color: var(--topbar-sticky-background);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+
+  position: sticky;
+
+  height: var(--header-height);
+  display: flex;
+  justify-content: space-between;
+
+  &__side {
+    display: flex;
+    gap: var(--spacing-04);
+    align-items: center;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+
+    &__link {
+      font-weight: 900;
+      font-size: 20px;
+      color: var(--primary-color);
+    }
+
+    &__image {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+    }
+  }
+
+  .navbar {
+    display: flex;
+    gap: var(--spacing-04);
+
+    a {
+      color: var(--text-color);
+      font-weight: 500;
+    }
+  }
+}

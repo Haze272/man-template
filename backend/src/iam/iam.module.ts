@@ -14,10 +14,11 @@ import { AuthenticationGuard } from './authentication/guards/authentication.guar
 import { RolesGuard } from './authorization/guards/roles.guard';
 import { AccessTokenGuard } from './authentication/guards/access-token.guard';
 import { RolesService } from '../roles/roles.service';
+import { UserStatus } from '../users/entities/user-status.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Role]),
+    TypeOrmModule.forFeature([User, Role, UserStatus]),
     JwtModule.registerAsync(jwtConfig.asProvider()),
     ConfigModule.forFeature(jwtConfig),
   ],

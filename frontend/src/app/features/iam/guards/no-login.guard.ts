@@ -1,24 +1,30 @@
-import {CanActivateFn, Router} from '@angular/router';
+import {ActivatedRoute, CanActivateFn, Router} from '@angular/router';
 import {inject} from '@angular/core';
 import {AuthService} from '../services/auth.service';
-import {map, take} from 'rxjs';
-import {User} from '../models/user.model';
+import {map, takeUntil, timer, withLatestFrom} from 'rxjs';
 
 export const noLoginGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const authService = inject(AuthService);
+  const activatedRoute = inject(ActivatedRoute);
 
-  return authService.activeUser$
+  return timer(2000)
     .pipe(
-      take(1),
-      map((user: User | null) => {
+      withLatestFrom(authService.activeUser$, activatedRoute.queryParams),
+      map(([wtf, user, params]) => {
         if (user) {
           console.log('[no-login.guard.ts]: person already logged!')
-          router.parseUrl(`/`);
+          console.log('params', params)
+          if (params && params['redirectTo']) {
+            router.navigateByUrl(params['redirectTo']);
+          } else {
+            router.navigateByUrl(`/`);
+          }
+
           return false;
         }
 
         return true;
       })
-    );
+    )
 };

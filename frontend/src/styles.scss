@@ -1,9 +1,12 @@
 @use "reset";
 @use "variables";
 
+@import "primeicons/primeicons.css";
+
 body {
   font-family: "Inter", sans-serif;
-  background-color: #ffffff;
+  background: url(/assets/img/texture-bg-footer.svg), var(--ground-background);
+  background-repeat: repeat;
 }
 
 h1 {
@@ -25,3 +28,62 @@ h4 {
   font-size: 1.25rem;
   color: var(--text-color);
 }
+
+section, header, footer, .container {
+  padding: 0 15px;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &.full-width {
+    padding: 0 var(--spacing-02);
+  }
+}
+
+section[class] {
+  padding-top: var(--spacing-06);
+  padding-bottom: var(--spacing-06);
+}
+
+.page {
+  min-height: calc(100vh - var(--header-height));
+  gap: var(--spacing-06);
+
+  &__header {
+    display: flex;
+    gap: var(--spacing-07);
+  }
+}
+
+@media (min-width: 575.98px){
+  section, header, footer, .container {
+    padding: 0 calc(50vw - 270px);
+  }
+}
+
+@media (min-width: 767.98px){
+  section, header, footer, .container {
+    padding: 0 calc(50vw - 360px);
+  }
+}
+
+@media (min-width: 991.98px) {
+  section, header, footer, .container {
+    padding: 0 calc(50vw - 480px);
+  }
+}
+
+@media (min-width: 1199.98px){
+  section, header, footer, .container {
+    padding: 0 calc(13vw - 114px);
+  }
+}
+
+.plate {
+  backdrop-filter: blur(10px);
+}
+
+

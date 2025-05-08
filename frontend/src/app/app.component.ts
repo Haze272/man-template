@@ -1,13 +1,15 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
-import {RouterLink, RouterOutlet} from '@angular/router';
+import {RouterOutlet} from '@angular/router';
 import {AuthService} from './features/iam/services/auth.service';
-import {AsyncPipe, JsonPipe} from '@angular/common';
 import {map, Subject, takeUntil} from 'rxjs';
 import {User} from './features/iam/models/user.model';
+import {HeaderComponent} from './shared/header/header.component';
+import {Toast} from 'primeng/toast';
+import {AsyncPipe, JsonPipe} from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, JsonPipe, AsyncPipe, RouterLink],
+  imports: [RouterOutlet, HeaderComponent, Toast, AsyncPipe, JsonPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

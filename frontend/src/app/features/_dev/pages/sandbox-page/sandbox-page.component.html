@@ -1,0 +1,15 @@
+<p-button label="Check" />
+
+<p-date-picker
+  [readonlyInput]="true"
+  [showIcon]="true"
+  [(ngModel)]="rangeDates"
+  selectionMode="range"
+  dateFormat="dd.mm.yy"
+/>
+
+<p>{{ rangeDates ? rangeDates[0] : 'N/A'}}</p>
+<p>{{ rangeDates ? rangeDates[1] : 'N/A'}}</p>
+
+<p>{{ rangeDates ? rangeDates[0].toUTCString() : 'N/A'}}</p>
+<p>{{ rangeDates ? rangeDates[1].toUTCString() : 'N/A'}}</p>

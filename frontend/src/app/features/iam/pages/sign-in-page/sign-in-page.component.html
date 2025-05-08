@@ -1,7 +1,25 @@
-<form [formGroup]="logInForm" (ngSubmit)="logIn()">
-  <input formControlName="email" type="email" placeholder="Электронная почта">
+<section class="page page-auth">
+  <div class="auth-form">
+    <h1>Авторизация</h1>
 
-  <input formControlName="password" type="password" placeholder="Пароль">
+    <form [formGroup]="logInForm" (ngSubmit)="logIn()">
+      <p-iftalabel>
+        <input pInputText formControlName="email" id="login" autocomplete="off" />
 
-  <button>Войти</button>
-</form>
+        <label for="login">Электронная почта</label>
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <p-password [feedback]="false" inputId="password" formControlName="password" />
+        <label for="password">Пароль</label>
+      </p-iftalabel>
+
+      <p class="link">
+        Нет аккаунта? <a [routerLink]="['/auth/sign-up']">Зарегистрироваться</a>
+      </p>
+
+      <p-button label="Войти" type="submit" />
+    </form>
+  </div>
+
+</section>

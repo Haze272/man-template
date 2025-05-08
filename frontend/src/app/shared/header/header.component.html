@@ -1,0 +1,39 @@
+@let user = authService.activeUser$ | async;
+<header class="header">
+  <div class="header__side">
+    <div class="logo">
+      <a [routerLink]="['/']" class="logo__link">
+        APPLICATION
+      </a>
+    </div>
+  </div>
+
+  <div class="header__side">
+    <nav class="navbar">
+      @if (user && authService.hasRole([5])) {
+        <a [routerLink]="['admin/users']" routerLinkActive="active">
+          Клиенты
+        </a>
+      } @else {
+        <a [routerLink]="['profile']" routerLinkActive="active">
+          Профиль
+        </a>
+      }
+
+    </nav>
+  </div>
+  <div class="header__side">
+    @if (user) {
+      <p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v"/>
+    } @else {
+      <p-button
+        [routerLink]="['auth/log-in']"
+        [link]="true"
+        icon="pi pi-user"
+        label="Войти"
+      />
+    }
+  </div>
+</header>
+
+<p-menu #menu [model]="accountMenuItems" [popup]="true"></p-menu>

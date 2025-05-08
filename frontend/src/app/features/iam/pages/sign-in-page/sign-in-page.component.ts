@@ -1,13 +1,22 @@
 import {ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {Subject, switchMap, takeUntil} from 'rxjs';
+import {catchError, concat, of, Subject, switchMap, takeUntil} from 'rxjs';
+import {Button} from 'primeng/button';
+import {IftaLabel} from 'primeng/iftalabel';
+import {InputText} from 'primeng/inputtext';
+import {Password} from 'primeng/password';
 
 @Component({
   selector: 'app-sign-in-page',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Button,
+    IftaLabel,
+    InputText,
+    Password,
+    RouterLink
   ],
   templateUrl: './sign-in-page.component.html',
   styleUrl: './sign-in-page.component.scss',
@@ -32,6 +41,22 @@ export class SignInPageComponent implements OnInit, OnDestroy {
         this.redirectToAfterLogin = params['redirectTo'];
       });
 
+    setTimeout(() => {
+      this.authService.activeUser$
+        .pipe(takeUntil(this.#destroy$))
+        .subscribe(user => {
+          if (user) {
+            console.log('[no-login.guard.ts]: person already logged!')
+
+            if (this.redirectToAfterLogin) {
+              this.router.navigateByUrl(this.redirectToAfterLogin);
+            } else {
+              this.router.navigateByUrl(`/`);
+            }
+          }
+        });
+    }, 2000);
+
     this.logInForm = new FormGroup({
       email: new FormControl<string | null>(null, {validators: [Validators.required, Validators.email]}),
       password: new FormControl<string | null>(null, Validators.required),
@@ -43,14 +68,24 @@ export class SignInPageComponent implements OnInit, OnDestroy {
         switchMap(({login, password}) => {
           return this.authService.signIn(login, password)
         }),
+        catchError((err, caught) => {
+          console.error("Auth error", err);
+
+          return caught;
+        }),
       )
       .subscribe({
-        next: () => {
-          this.router.navigateByUrl(this.redirectToAfterLogin);
-          console.log("Auth success")
+        next: (result) => {
+          if (result) {
+            this.router.navigateByUrl(this.redirectToAfterLogin);
+            console.log("Auth success")
+          }
         },
         error: (err) => {
-          console.error("Auth error")
+          console.error("Auth error1111")
+        },
+        complete: () => {
+          console.log('complete');
         }
       });
   }

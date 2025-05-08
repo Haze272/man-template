@@ -1,0 +1,120 @@
+<section class="page">
+  <h1 class="aurora">Список пользователей</h1>
+
+  @let users = users$ | async;
+  @if (users) {
+    <p-table
+      [value]="users"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      [paginator]="true"
+      [rows]="20"
+      [rowsPerPageOptions]="[20, 50, 100]"
+    >
+      <ng-template #header>
+        <tr>
+          <th>ID</th>
+          <th>ФИО</th>
+          <th>email</th>
+          <th>Телефон</th>
+          <th>Логин</th>
+          <th>Роли</th>
+          <th>Статус</th>
+          <th>
+            Действия
+            <p-button (click)="refreshList()" icon="pi pi-refresh" [rounded]="true" [text]="true" />
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-user>
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.surname }} {{ user.name[0] }}. {{ user.patronymic ? user.patronymic[0] + '.' : '' }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.phone }}</td>
+          <td>{{ user.username }}</td>
+          <td>
+            @for (role of user.roles; track role.id) {
+              <span>{{ role.name }};&nbsp;</span>
+            }
+          </td>
+          <td>{{ user.status ? user.status.name : 'N/A' }}</td>
+          <td>
+            <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" (click)="openEditDialog(user.id)" title="Редактировать" />
+            @if (user.status && user.status.id === 1) {
+              <p-button icon="pi pi-ban" [rounded]="true" [text]="true" (click)="banUser(user.id)" title="Забанить" />
+            } @else if (user.status && user.status.id === 2) {
+              <p-button icon="pi pi-face-smile" [rounded]="true" [text]="true" (click)="unbanUser(user.id)" title="Разбанить" />
+            } @else {
+              <p-button icon="pi pi-ban" [rounded]="true" [text]="true" (click)="banUser(user.id)" title="Забанить" />
+            }
+            <p-button icon="pi pi-times" [rounded]="true" [text]="true" (click)="deleteUser(user.id)" title="Удалить" />
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  } @else {
+    net
+  }
+</section>
+
+<p-dialog
+  [header]="'Редактирование пользователя #' + editForm.controls['id'].value"
+  [modal]="true"
+  [(visible)]="editDialog"
+  [style]="{ width: '800px' }"
+>
+  <div class="dialog">
+    <form [formGroup]="editForm" (ngSubmit)="submitEdit()" class="dialog__form">
+      <p-iftalabel>
+        <input pInputText formControlName="email" id="email" autocomplete="off" />
+        <label for="email">Электронная почта</label>
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <input pInputText formControlName="username" id="username" autocomplete="off" />
+        <label for="username">Логин</label>
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <input pInputText formControlName="name" id="name" autocomplete="off" />
+        <label for="name">Имя</label>
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <input pInputText formControlName="surname" id="surname" autocomplete="off" />
+        <label for="surname">Фамилия</label>
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <input pInputText formControlName="patronymic" id="patronymic" autocomplete="off" />
+        <label for="patronymic">Отчество</label>
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <input pInputText formControlName="phone" id="phone" autocomplete="off" />
+        <label for="phone">Номер телефона</label>
+      </p-iftalabel>
+
+      <p-iftalabel class="w-full md:w-80">
+        <p-multi-select
+          [options]="roles"
+          formControlName="roleIds"
+          optionLabel="name"
+          optionValue="id"
+          placeholder="Выберите роли"
+          inputId="roles"
+          appendTo="body"
+          styleClass="w-full md:w-80"
+        />
+        <label for="roles">Роли</label>
+      </p-iftalabel>
+
+    </form>
+
+    <div class="dialog__actions">
+      <p-button label="Cancel" severity="secondary" (click)="cancelEditDialog()" />
+      <p-button label="Save" (click)="submitEdit()" />
+    </div>
+  </div>
+
+</p-dialog>
