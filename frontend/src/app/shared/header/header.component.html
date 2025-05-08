@@ -3,7 +3,7 @@
   <div class="header__side">
     <div class="logo">
       <a [routerLink]="['/']" class="logo__link">
-        TADAVIA
+        APPLICATION
       </a>
     </div>
   </div>
@@ -11,32 +11,18 @@
   <div class="header__side">
     <nav class="navbar">
       @if (user && authService.hasRole([5])) {
-        <a [routerLink]="['admin/book/list']" routerLinkActive="active">
-          Бронирования
-        </a>
-        <a [routerLink]="['admin/table/list']" routerLinkActive="active">
-          Столики
-        </a>
         <a [routerLink]="['admin/users']" routerLinkActive="active">
           Клиенты
         </a>
       } @else {
-        <a [routerLink]="['book/table/list']" routerLinkActive="active">
-          Заказать столик
-        </a>
-        <a
-          [routerLink]="['book/list']"
-          [routerLinkActiveOptions]="{ exact: true }"
-          routerLinkActive="active"
-        >
-          Мои бронирования
+        <a [routerLink]="['profile']" routerLinkActive="active">
+          Профиль
         </a>
       }
 
     </nav>
   </div>
   <div class="header__side">
-<!--    TODO: сделать меню из PrimeNG-->
     @if (user) {
       <p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v"/>
     } @else {

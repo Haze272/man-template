@@ -4,10 +4,6 @@ import {ConfigService} from '../../config/config.service';
 import {User} from '../../iam/models/user.model';
 import {Role} from '../../iam/models/role.model';
 import {iif, zip} from 'rxjs';
-import {Table} from '../../booking/models/table.model';
-import {TableType} from '../../booking/models/table-type.model';
-import {Booking} from '../../booking/models/booking.model';
-import {BookingStatus} from '../../booking/models/booking-status.model';
 
 @Injectable({
   providedIn: 'root'
@@ -56,69 +52,6 @@ export class AdminService {
   getAllRoles() {
     return this.http.get<Role[]>(
       this.configService.config.admin.url + `/roles`,
-      { withCredentials: true }
-    );
-  }
-
-  getAllTables() {
-    return this.http.get<Table[]>(
-      this.configService.config.admin.url + `/tables`,
-      { withCredentials: true }
-    );
-  }
-  getTableById(id: number) {
-    return this.http.get<Table>(
-      this.configService.config.admin.url + `/tables/${id}`,
-      { withCredentials: true }
-    );
-  }
-  updateTable(
-    id: number,
-    tableUpdateData: Partial<Table> & {
-      tableTypeId?: number
-    }) {
-    return this.http.patch<Table>(
-      this.configService.config.admin.url + `/tables/${id}`,
-      tableUpdateData,
-      { withCredentials: true }
-    );
-  }
-
-  getAllTableTypes() {
-    return this.http.get<TableType[]>(
-      this.configService.config.admin.url + `/tables/types`,
-      { withCredentials: true }
-    );
-  }
-
-  getAllBookings() {
-    return this.http.get<Booking[]>(
-      this.configService.config.admin.url + `/bookings`,
-      { withCredentials: true }
-    );
-  }
-  getBookingById(id: number) {
-    return this.http.get<Booking>(
-      this.configService.config.admin.url + `/bookings/${id}`,
-      { withCredentials: true }
-    );
-  }
-  updateBooking(
-    id: number,
-    bookingUpdateData: Partial<Booking> & {
-      statusId?: number,
-      dateBookInt?: Date | string,
-    }) {
-    return this.http.patch<Booking>(
-      this.configService.config.admin.url + `/bookings/${id}`,
-      bookingUpdateData,
-      { withCredentials: true }
-    );
-  }
-
-  getAllBookingStatuses() {
-    return this.http.get<BookingStatus[]>(
-      this.configService.config.admin.url + `/bookings/statuses`,
       { withCredentials: true }
     );
   }

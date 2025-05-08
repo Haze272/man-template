@@ -1,11 +1,11 @@
-<!--<div class="test-info">-->
-<!--  @let user = (activeUser$ | async);-->
-<!--  <div>Account: {{ user?.email ?? 'N/A'  }}</div>-->
-<!--  <div>id: {{ user?.id ?? 'N/A'  }}</div>-->
-<!--  <div>Roles: {{ user?.roles ?? 'N/A' | json }}</div>-->
-<!--  <div>Fullname: {{ user?.surname ?? '[не указано]' }} {{ user?.name ?? '[не указано]' }} {{ user?.patronymic ?? '[не указано]' }}</div>-->
-<!--  <button (click)="logout()">Exit</button>-->
-<!--</div>-->
+<div class="test-info">
+  @let user = (activeUser$ | async);
+  <div>Account: {{ user?.email ?? 'N/A'  }}</div>
+  <div>id: {{ user?.id ?? 'N/A'  }}</div>
+  <div>Roles: {{ user?.roles ?? 'N/A' | json }}</div>
+  <div>Fullname: {{ user?.surname ?? '[не указано]' }} {{ user?.name ?? '[не указано]' }} {{ user?.patronymic ?? '[не указано]' }}</div>
+  <button (click)="logout()">Exit</button>
+</div>
 
 <p-toast />
 
