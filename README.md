@@ -1,2 +1,2 @@
 # man-template
- MySQL + Angular + NestJS шаблон для приложений с
+ MySQL + Angular + NestJS шаблон для приложений с аутентификацией, авторизацией с ролевым доступом
